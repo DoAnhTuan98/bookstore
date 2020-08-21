@@ -6,6 +6,7 @@
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
     padding: 0 14px 14px 14px;
+    cursor: pointer;
     z-index: 1;
 }
 
@@ -14,6 +15,7 @@
     font-weight: 600;
     font-size: 14px;
     padding: 10px 0;
+    user-select: none;
 }
 
 .cart .total-price {

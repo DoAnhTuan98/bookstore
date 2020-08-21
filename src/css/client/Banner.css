@@ -17,6 +17,7 @@
     color: rgb(13, 17, 54);
     font-weight: 700;
     text-align: center;
+    user-select: none;
 }
 
 .Banner .title p {
@@ -26,6 +27,7 @@
     text-align: center;
     margin-top: 20px;
     margin-bottom: 50px;
+    user-select: none;
 }
 
 .Banner .search-bar {
@@ -37,6 +39,7 @@
     margin: 0 auto;
     border-radius: 3px;
     padding: 0 5px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 21px 36px;
 }
 
 .search-bar .label {

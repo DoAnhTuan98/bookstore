@@ -14,7 +14,7 @@ class Banner extends Component {
                         <p>Get your favourite books from our wide range of books.</p>
                     </div>
                     <div className="search-bar">
-                        <span class="label">Book</span>
+                        <span className="label">Book</span>
                         <form>
                             <input className="p-0" type="text" placeholder="Search your books from here" />
                         </form>

@@ -1,0 +1,2 @@
+export const OPEN_CARTITEM = 'OPEN_CARTITEM'
+export const CLOSE_CARTITEM = 'CLOSE_CARTITEM'
