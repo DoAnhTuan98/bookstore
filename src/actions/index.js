@@ -11,3 +11,9 @@ export const actCloseCartItem = () => {
         type: Types.CLOSE_CARTITEM
     }
 }
+
+export const actChangeForm = () => {
+    return {
+        type: Types.CHANGE_FORM
+    }
+}
