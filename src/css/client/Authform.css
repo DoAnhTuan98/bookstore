@@ -47,3 +47,10 @@
     text-decoration: underline;
     font-weight: 600;
 }
+
+.Authform .footer .signin {
+    color: rgb(0, 158, 127);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 600;
+}

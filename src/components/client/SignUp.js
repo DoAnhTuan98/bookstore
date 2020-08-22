@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap'
+import '../../css/client/Authform.css'
 class SignUp extends Component {
     constructor(pros) {
         super(pros)
@@ -7,7 +8,7 @@ class SignUp extends Component {
     }
     render() {
         return (
-            <div className="AuthForm">
+            <div className="Authform">
                 <div className="header">
                     <h1>Sign Up</h1>
                     <p>By signing up, you agree to Pickbazar's</p>
@@ -15,21 +16,21 @@ class SignUp extends Component {
                 <Form>
                     <FormGroup>
                         <Label for="name">
-                            NAME
+                            Name
                             <span className="ml-1 text-danger">*</span>
                         </Label>
                         <Input id="name" type="text" name="name" autoComplete="off" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="email">
-                            EMAIL
+                            Email
                             <span className="ml-1 text-danger">*</span>
                         </Label>
                         <Input id="email" type="email" name="email" autoComplete="off" />
                     </FormGroup>
                     <FormGroup>
                         <Label for="password">
-                            PASSWORD
+                            Password
                             <span className="ml-1 text-danger">*</span>
                         </Label>
                         <Input id="password" type="password" name="password" autoComplete="off" />
@@ -37,7 +38,7 @@ class SignUp extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label for="address">
-                            ADDRESS
+                            Address
                             <span className="ml-1 text-danger">*</span>
                         </Label>
                         <Input id="address" type="text" name="address" autoComplete="off" />
@@ -45,7 +46,7 @@ class SignUp extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label for="phone">
-                            PHONE
+                            Phone
                             <span className="ml-1 text-danger">*</span>
                         </Label>
                         <Input autoComplete="off" id="phone" type="text" name="phone" />
@@ -57,7 +58,7 @@ class SignUp extends Component {
                 </Form>
                 <div className="footer">
                     Already have an account?
-                    <span>Sign In</span>
+                    &nbsp;<span className="signin">Sign In</span>
                 </div>
             </div>
         )

@@ -12,8 +12,27 @@ export const actCloseCartItem = () => {
     }
 }
 
-export const actChangeForm = () => {
+export const actOpenFormSignUp = () => {
     return {
-        type: Types.CHANGE_FORM
+        type: Types.OPEN_FORM_SIGNUP
     }
 }
+
+export const actOpenFormSignIn = () => {
+    return {
+        type: Types.OPEN_FORM_SIGNIN
+    }
+}
+
+export const actReadMore = () => {
+    return {
+        type: Types.READ_MORE
+    }
+}
+
+export const actOverflowHidden = () => {
+    return {
+        type: Types.OVERFLOW_HIDDEN
+    }
+}
+

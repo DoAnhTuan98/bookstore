@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import { connect } from 'react-redux'
+import { actOpenFormSignUp } from '../../actions/index'
 import '../../css/client/Authform.css'
 class SignIn extends Component {
     constructor(pros) {
@@ -26,11 +28,19 @@ class SignIn extends Component {
                 </Form>
                 <div className="footer">
                     Don't have an account?
-                    &nbsp;<span className="signup">Sign up</span>
+                    &nbsp;<span className="signup" onClick={this.props.onOpenFormSignUp}>Sign up</span>
                 </div>
             </div>
         )
     }
 }
 
-export default SignIn
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onOpenFormSignUp: () => {
+            dispatch(actOpenFormSignUp())
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)
