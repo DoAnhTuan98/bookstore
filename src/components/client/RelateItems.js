@@ -10,19 +10,19 @@ class RelateItems extends Component {
     render() {
         return (
             <div className="relate-items">
-                <Container>
-                    <Row className="ml-2">
+                <Container className="max-width">
+                    <Row className="ml-2" >
                         <h1>Related Items</h1>
                     </Row>
                     <Row>
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
-                        <Product />
+                        <Product type="related" />
+                        <Product type="related" />
+                        <Product type="related" />
+                        <Product type="related" />
+                        <Product type="related" />
+                        <Product type="related" />
+                        <Product type="related" />
+                        <Product type="related" />
                     </Row>
                 </Container>
             </div >

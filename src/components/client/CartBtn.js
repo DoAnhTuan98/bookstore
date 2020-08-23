@@ -7,11 +7,14 @@ class CartBtn extends Component {
 
     }
     render() {
+        let { type } = this.props
         return (
             <div className="cart-btn">
-                <button className="btn">
+                <button className={type === 'related' ? 'btn related' : 'btn'}>
                     <FontAwesomeIcon icon={faShoppingBasket} />
-                    <p>Add to cart</p>
+                    {
+                        type === 'related' ? <p>Cart</p> : <p>Add to cart</p>
+                    }
                 </button>
             </div>
         )

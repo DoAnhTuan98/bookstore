@@ -3,6 +3,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import '../../css/client/ProductView.css'
+import '../../css/client/CartBtn.css'
 import { Link } from 'react-router-dom'
 import CartBtn from '../../components/client/CartBtn'
 class ProductView extends Component {

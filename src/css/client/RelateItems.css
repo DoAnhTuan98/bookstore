@@ -1,3 +1,6 @@
+.relate-items .max-width {
+    max-width: 1800px;
+}
 .relate-items h1 {
     font-size: 24px;
     font-weight: 700;
