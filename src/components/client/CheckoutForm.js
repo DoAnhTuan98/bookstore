@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
-import { Form, FormGroup, Label, Input } from 'reactstrap'
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import '../../css/client/CheckoutForm.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBillAlt } from "@fortawesome/free-solid-svg-icons";
+
+import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+
+// const stripe = useStripe()
+// const elements = useElements()
+
 class CheckoutForm extends Component {
     constructor(pros) {
         super(pros)
@@ -12,11 +18,34 @@ class CheckoutForm extends Component {
             address: 'số 2 Minh Khai',
             city: 'Hà Nội',
             district: 'Hai Bà Trưng',
-            phone: '0965432033'
+            phone: '0965432033',
+            payment: 'cash'
         }
     }
+
+    handleSubmit = async (event) => {
+        event.preventDefault();
+        const { stripe, elements } = this.props;
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: elements.getElement(CardElement),
+        });
+    };
+
+
+    onHandleInput = (e) => {
+        let target = e.target
+        let name = target.name
+        let value = target.value
+        this.setState({
+            [name]: value
+        })
+    }
+
     render() {
-        let { name, email, address, city, district, phone } = this.state
+        const { stripe } = this.props;
+        let { name, email, address, city, district, phone, payment } = this.state
+        console.log(payment)
         return (
             <div className="checkout-form">
                 <div className='order-info'>
@@ -34,7 +63,7 @@ class CheckoutForm extends Component {
                         <div className="price">$52.00</div>
                     </div>
                 </div>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <div className="billing-address">
                         <h3 className="bt-header">Billing Address</h3>
                         <FormGroup>
@@ -76,23 +105,36 @@ class CheckoutForm extends Component {
                     </div>
                 </Form>
                 <div className="payment">
-                    <h3>Select Payment Option</h3>
-                    <FormGroup>
+                    <h3 className="bt-header">Select Payment Option</h3>
+                    <FormGroup className="d-flex justify-content-between mb-3 p-0">
                         <Input
                             type="radio"
                             id="cash"
                             name="payment"
                             value="cash"
-
-
+                            onChange={this.onHandleInput}
                             autoComplete="off"
                         />{' '}
                         <Label for="cash" check>
                             <FontAwesomeIcon icon={faMoneyBillAlt} />
                             <span>Cash</span>
                         </Label>
+                        <Input
+                            type="radio"
+                            id="card"
+                            name="payment"
+                            value="card"
+                            onChange={this.onHandleInput}
+                            autoComplete="off"
+                        />{' '}
+                        <Label for="card" check>
+                            <FontAwesomeIcon icon={faCreditCard} />
+                            <span>Card</span>
+                        </Label>
                     </FormGroup>
                 </div>
+                {payment === 'card' && <CardElement />}
+                <Button type="submit" className="btn w-100" disabled={!stripe}>Proceed to Checkout</Button>
             </div>
         )
     }

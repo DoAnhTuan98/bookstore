@@ -31,6 +31,10 @@
     color: #fff;
 }
 
+.cart-btn .related:hover p {
+    color: #fff;
+}
+
 .cart-btn .related p {
     color: rgb(0, 158, 127);
 }

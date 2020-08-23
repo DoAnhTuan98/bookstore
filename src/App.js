@@ -18,6 +18,10 @@ import {
     // Link
 } from "react-router-dom";
 
+import { loadStripe } from '@stripe/stripe-js';
+import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+const stripePromise = loadStripe('pk_test_UveTYJMSFhA9nBMhfj2AE6K600nYtR677m');
+
 const store = createStore(appReducers)
 
 class App extends Component {
@@ -37,13 +41,15 @@ class App extends Component {
     }
     render() {
         return (
-            <Provider store={store}>
-                <BrowserRouter>
-                    <div className="App">
-                        {this.showContentMenus(routes)}
-                    </div>
-                </BrowserRouter>
-            </Provider>
+            <Elements stripe={stripePromise}>
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <div className="App">
+                            {this.showContentMenus(routes)}
+                        </div>
+                    </BrowserRouter>
+                </Provider>
+            </Elements>
         )
     }
 }

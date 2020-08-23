@@ -3,6 +3,7 @@ import Nav from '../../components/client/Nav'
 import UserSideBar from '../../components/client/UserSideBar'
 import CheckoutForm from '../../components/client/CheckoutForm'
 import '../../css/client/Checkout.css'
+import { ElementsConsumer } from '@stripe/react-stripe-js';
 class Checkout extends Component {
     constructor(pros) {
         super(pros)
@@ -16,7 +17,11 @@ class Checkout extends Component {
                     <div className="side-bar">
                         <UserSideBar />
                     </div>
-                    <CheckoutForm />
+                    <ElementsConsumer>
+                        {({ stripe, elements }) => (
+                            <CheckoutForm stripe={stripe} elements={elements} />
+                        )}
+                    </ElementsConsumer>
                 </div>
             </div>
 
