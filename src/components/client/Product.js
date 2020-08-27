@@ -2,32 +2,41 @@ import React, { Component } from 'react'
 import { Col } from 'reactstrap'
 import '../../css/client/Product.css'
 import CartBtn from './CartBtn'
+import { Link } from 'react-router-dom'
+
 class Product extends Component {
     constructor(pros) {
         super(pros)
 
     }
+
+    // handleClick = (category) => {
+    //     this.props.filterProducts(category)
+    // }
+
+
+    // onClick={() => onGetOneProduct(product.id)}
     render() {
-        let { type } = this.props
+        let { type, product, cart } = this.props
         return (
             <Col className="mb-5" sm="6" lg="4" xl="3">
-                <a className="product">
-                    <img src="https://res.cloudinary.com/dofqucuyy/image/upload/v1596887706/firewatch-5120x2880-4k-8k-art-forest-13610_yy7fad.jpg" />
+                <Link className="product" to={`/product/${product.id}`} >
+                    <img src={product.img} />
                     <div className="info">
-                        <h3 className="title">The Princeton Childrens Book test</h3>
-                        <p className="author">By Anh Tuan</p>
+                        <h3 className="title">{product.name}</h3>
+                        <p className="author">{product.author}</p>
                     </div>
                     {
                         (type === 'related' || type === 'admin') &&
                         <div className="cartbtn-price">
-                            <div className="price">$70</div>
+                            <div className="price">${product.price}</div>
                             {
                                 type !== 'admin' &&
-                                <CartBtn type={type} />
+                                <CartBtn type={type} cart={cart} product={product} />
                             }
                         </div>
                     }
-                </a>
+                </Link>
             </Col>
         )
     }

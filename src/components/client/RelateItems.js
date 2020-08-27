@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { Container, Row } from 'reactstrap'
-import Product from './Product'
 import '../../css/client/RelateItems.css'
+import { connect } from 'react-redux'
 class RelateItems extends Component {
-    constructor(pros) {
-        super(pros)
-
-    }
     render() {
+        let { products, id } = this.props
         return (
             <div className="relate-items">
                 <Container className="max-width">
@@ -15,14 +12,7 @@ class RelateItems extends Component {
                         <h1>Related Items</h1>
                     </Row>
                     <Row>
-                        <Product type="related" />
-                        <Product type="related" />
-                        <Product type="related" />
-                        <Product type="related" />
-                        <Product type="related" />
-                        <Product type="related" />
-                        <Product type="related" />
-                        <Product type="related" />
+                        {this.props.showProduct(products, id)}
                     </Row>
                 </Container>
             </div >

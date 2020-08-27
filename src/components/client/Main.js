@@ -8,6 +8,7 @@ class Main extends Component {
 
     }
     render() {
+        let { products } = this.props
         return (
             <main className="main">
                 <Container fluid={true}>
@@ -15,7 +16,9 @@ class Main extends Component {
                         {/* category  */}
                         <Category />
                         {/* Products  */}
-                        <Products />
+                        <Products products={products}>
+                            {this.props.showProducts}
+                        </Products>
                     </Row>
                 </Container>
             </main>

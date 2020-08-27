@@ -4,7 +4,7 @@ import { faShoppingBag, faTimes } from "@fortawesome/free-solid-svg-icons";
 import '../../css/client/Cartitem.css'
 import { connect } from 'react-redux'
 import { actCloseCartItem } from '../../actions/index'
-
+import QuantityAdjustment from '../../components/client/QuantityAdjustment'
 class CartItem extends Component {
     constructor(pros) {
         super(pros)
@@ -17,33 +17,47 @@ class CartItem extends Component {
         this.props.closeCartItem()
     }
 
-    // UNSAFE_componentWillReceiveProps(nextProps) {
-    //     console.log(nextProps)
-    //     let { statusCartItem } = nextProps
-    //     console.log(statusCartItem)
-    //     this.setState({
-    //         CartItems: [],
-    //         status: statusCartItem
-    //     })
-    // }
+    totalPrice = (cart) => {
+        let totalPrice = null
+        cart.forEach(element => {
+            totalPrice += element.product.price
+        });
+        return totalPrice
+    }
 
     render() {
-        // console.log(this.props.statusCartItem.cartItemStatus)
-        // let { cartItemStatus } = this.props.statusCartItem
-        // console.log(cartItemStatus)
-        let { statusCartItem } = this.props
+        let { statusCartItem, cart } = this.props
+        let totalQuantity = null
+        cart.forEach(element => {
+            totalQuantity += element.quantity
+        });
+        let cartItems = cart.map(item =>
+            <div key={item.product.id} className="item">
+                <QuantityAdjustment type="cart" cartCurrently={item} />
+                <div className="img">
+                    <img src={item.product.img} alt="" />
+                </div>
+                <div className="info">
+                    <div className="title">{item.product.name}</div>
+                    <div className="price">${item.product.price} </div>
+                    <div className="quantity">{item.quantity} pc(s)</div>
+                </div>
+                <div className="total-price">${item.product.price * item.quantity}</div>
+                <FontAwesomeIcon icon={faTimes} className="ml-4" />
+            </div>
+        )
         return (
             <div className={statusCartItem === true ? "cart-item c-show" : "cart-item"}>
                 <div className="header">
                     <div className="item-amount">
                         <FontAwesomeIcon className="mr-2" icon={faShoppingBag} />
-                        0 item
+                        {totalQuantity > 0 ? totalQuantity : 0} {totalQuantity < 2 ? 'item' : 'items'}
                     </div>
                     <FontAwesomeIcon icon={faTimes} className="close" onClick={this.closeCartItem} />
                 </div>
                 <div className="body">
                     {
-                        this.state.CartItems.length === 0 && <span style={{
+                        cart.length === 0 && <span style={{
                             fontSize: "15px",
                             fontWeight: "700",
                             color: "rgb(119, 121, 140)",
@@ -54,11 +68,14 @@ class CartItem extends Component {
                         }}>
                             Not Products found</span>
                     }
+                    {cartItems}
                 </div>
-                <a className="footer disable-btn" href="#">
-                    <span>Checkout</span>
+                <a className={cart.length === 0 ? "footer disable-btn" : "footer"} href="#">
+                    <span style={{
+                        color: [cartItems.length === 0 ? 'rgb(0, 158, 127)' : '']
+                    }}>Checkout</span>
                     <div className="total">
-                        $0.00
+                        ${cart.length > 0 ? this.totalPrice(cart) : 0.00}
                     </div>
                 </a>
             </div>

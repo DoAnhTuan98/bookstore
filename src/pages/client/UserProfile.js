@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
+import UserSideBar from '../../components/client/UserSideBar'
+import Nav from '../../components/client/Nav'
+import '../../css/client/UserProfile.css'
 class Userprofle extends Component {
     constructor(pros) {
         super(pros)
@@ -7,55 +10,64 @@ class Userprofle extends Component {
     }
     render() {
         return (
-            <div className="UserProfile user-container">
-                {/* <Alert option="edit" isOpen={isSave} /> */}
-                <div>
-                    <UserSideBar page="profile" />
-                </div>
-                {
-
-                    <div className="user-wrapper">
-                        <div className="profile mb-5">
-                            <h3 className="bt-header">Your Profile</h3>
-                            <Form className="AuthForm" onSubmit={handleSubmit}>
-                                <FormGroup>
-                                    <Label for="name">NAME</Label>
-                                    <Input
-                                        id="name"
-                                        type="text"
-                                        name="name"
-                                        value="demo123"
-                                        // onChange={handleInput}
-                                        required
-                                        autoComplete="off"
-                                    />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Label for="email">EMAIL</Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        name="email"
-                                        value="demo@demo.com"
-                                        // onChange={handleInput}
-                                        required
-                                        autoComplete="off"
-                                    />
-                                </FormGroup>
-                                <Button type="submit">Save</Button>
-                            </Form>
-                        </div>
-                        <div className="contact mb-5">
-                            <h3 className="bt-header">Contact Number</h3>
-                            <UserInfo isPhone handleInput={handleInput} handleSubmit={handleSubmit} data={data} />
-                        </div>
-                        <div className="address">
-                            <h3 className="bt-header">Delivery Address</h3>
-                            <UserInfo handleInput={handleInput} handleSubmit={handleSubmit} data={data} />
-                        </div>
+            <React.Fragment>
+                <Nav />
+                <div className="UserProfile user-container">
+                    {/* <Alert option="edit" isOpen={isSave} /> */}
+                    <div>
+                        <UserSideBar page="profile" />
                     </div>
-                }
-            </div>
+                    <div className="profile">
+                        <div className="header">
+                            <h1>Your Profile</h1>
+                        </div>
+                        <Form>
+                            <FormGroup>
+                                <Label for="name">
+                                    Name
+                            <span className="ml-1 text-danger">*</span>
+                                </Label>
+                                <Input id="name" type="text" name="name" autoComplete="off" value="demo123" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="email">
+                                    Email
+                            <span className="ml-1 text-danger">*</span>
+                                </Label>
+                                <Input id="email" type="email" name="email" autoComplete="off" value="demo@demo.com" />
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="password">
+                                    Password
+                            <span className="ml-1 text-danger">*</span>
+                                </Label>
+                                <Input id="password" type="text" name="password" autoComplete="off" value="demo123" />
+                                {/* {errors.password && <div className="validation">{errors.password}</div>} */}
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="address">
+                                    Address
+                            <span className="ml-1 text-danger">*</span>
+                                </Label>
+                                <Input id="address" type="text" name="address" autoComplete="off" value="so 2 Minh khai,Hai Ba Trung,Ha Noi" />
+                                {/* {errors.address && <div className="validation">{errors.address}</div>} */}
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="phone">
+                                    Phone
+                            <span className="ml-1 text-danger">*</span>
+                                </Label>
+                                <Input autoComplete="off" id="phone" type="text" name="phone" value="0965432033" />
+                                {/* {errors.phone && <div className="validation">{errors.phone}</div>} */}
+                            </FormGroup>
+                            <Button size="lg" block type="submit">
+                                Save
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
+            </React.Fragment>
+
         )
     }
 }

@@ -4,6 +4,7 @@ import Home from './pages/client/Home'
 import Checkout from './pages/client/Checkout'
 import OrderReceived from './pages/client/OderReceived'
 import Orders from './pages/client/Orders'
+import UserProfile from './pages/client/UserProfile'
 const routes = [
     {
         path: '/',
@@ -11,9 +12,9 @@ const routes = [
         main: () => <Home />
     },
     {
-        path: '/detail',
+        path: '/product/:id',
         exact: true,
-        main: () => <Detail />
+        main: (match) => <Detail match={match} />
     },
     {
         path: '/checkout',
@@ -29,6 +30,11 @@ const routes = [
         path: '/order',
         exact: true,
         main: () => <Orders />
+    },
+    {
+        path: '/profile',
+        exact: true,
+        main: () => <UserProfile />
     }
 
 ]

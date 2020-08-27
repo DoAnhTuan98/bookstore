@@ -24,15 +24,37 @@ export const actOpenFormSignIn = () => {
     }
 }
 
-export const actReadMore = () => {
+export const actFilterCategory = (category) => {
     return {
-        type: Types.READ_MORE
+        type: Types.FILTER_CATEGORY,
+        category
     }
 }
 
-export const actOverflowHidden = () => {
+export const actGetAllProduct = () => {
     return {
-        type: Types.OVERFLOW_HIDDEN
+        type: Types.GET_ALL_PRODUCT
     }
 }
 
+export const actFindProduct = (name) => {
+    return {
+        type: Types.FIND_PRODUCT,
+        name
+    }
+}
+
+export const actAddToCart = (product, quantity) => {
+    return {
+        type: Types.ADD_TO_CART,
+        product,
+        quantity
+    }
+}
+
+export const actGetOneProduct = (id) => {
+    return {
+        type: Types.GET_ONE_PRODUCT,
+        id
+    }
+}

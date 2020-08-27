@@ -3,9 +3,29 @@ import { Button, Container } from 'reactstrap'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import '../../css/client/Banner.css'
+import { connect } from 'react-redux'
+import { actFindProduct } from '../../actions/index'
 class Banner extends Component {
-
+    constructor(props) {
+        super(props)
+        this.state = {
+            keyword: ''
+        }
+    }
+    handeChange = (e) => {
+        let target = e.target
+        let name = target.name
+        let value = target.value
+        this.setState({
+            [name]: value
+        })
+    }
+    handleOnclick = () => {
+        let { keyword } = this.state
+        this.props.onFindProduct(keyword)
+    }
     render() {
+        console.log(this.state.keyword)
         return (
             <div className="Banner">
                 <Container>
@@ -16,12 +36,12 @@ class Banner extends Component {
                     <div className="search-bar">
                         <span className="label">Book</span>
                         <form>
-                            <input className="p-0" type="text" placeholder="Search your books from here" />
+                            <input className="p-0" type="text" placeholder="Search your books from here" name="keyword" onChange={this.handeChange} />
                         </form>
-                        <Button>
+                        <Button onClick={this.handleOnclick}>
                             <FontAwesomeIcon icon={faSearch} className="mr-2" />
-                                    Search
-                                </Button>
+                            Search
+                        </Button>
                     </div>
                 </Container>
             </div>
@@ -29,4 +49,12 @@ class Banner extends Component {
     }
 }
 
-export default Banner
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onFindProduct: (name) => {
+            dispatch(actFindProduct(name))
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Banner)

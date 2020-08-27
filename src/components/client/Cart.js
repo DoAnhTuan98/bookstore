@@ -10,18 +10,39 @@ class Cart extends Component {
     openCartItem = () => {
         this.props.openCartItem()
     }
+
+    totalQuantity = (cart) => {
+        let totalQuantity = null
+        cart.forEach(element => {
+            totalQuantity += element.quantity
+        });
+        return totalQuantity
+    }
+
+    totalPrice = (cart) => {
+        let totalPrice = null
+        cart.forEach(element => {
+            totalPrice += element.product.price
+        });
+        return totalPrice
+    }
+
     render() {
-        console.log(this.props.statusCartItem)
+        let { cart } = this.props
+        console.log(cart)
         return (
             <div className="cart" onClick={this.openCartItem}>
                 <div className="item-amount">
                     <FontAwesomeIcon className="mr-2" icon={faShoppingBag} />
-                        0 item
-                    </div>
+                    {cart.length > 0 ? this.totalQuantity(cart) : 0} {cart.length > 0 && this.totalQuantity(cart) < 2 ? 'item' : 'items'}
+
+                </div>
                 <div className="total-price">
                     <p>
-                        $0.00
-                        </p>
+                        {/* ${cart !== undefined ? this.totalPrice(cart) : 0.00} */}
+                        ${cart.length > 0 ? this.totalPrice(cart) : 0}
+                        {/* $0.00 */}
+                    </p>
                 </div>
             </div>
         )

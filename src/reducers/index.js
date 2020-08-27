@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 import statusCartItem from './toggleCartitem'
 import Form from './changeForm'
-import isShow from './changeDescription'
+import products from './products'
+import cart from './cart'
 const appReducers = combineReducers({
     statusCartItem,
     Form,
-    isShow
+    products,
+    cart
 })
 
 export default appReducers;
