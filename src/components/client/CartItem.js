@@ -26,14 +26,14 @@ class CartItem extends Component {
     }
 
     render() {
-        let { statusCartItem, cart } = this.props
+        let { statusCartItem, cart, onAddToCart, onDecreaseCart } = this.props
         let totalQuantity = null
         cart.forEach(element => {
             totalQuantity += element.quantity
         });
         let cartItems = cart.map(item =>
             <div key={item.product.id} className="item">
-                <QuantityAdjustment type="cart" cartCurrently={item} />
+                <QuantityAdjustment type="cart" cartCurrently={item} onAddToCart={onAddToCart} onDecreaseCart={onDecreaseCart} product={item.product} />
                 <div className="img">
                     <img src={item.product.img} alt="" />
                 </div>

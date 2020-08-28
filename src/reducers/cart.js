@@ -1,10 +1,8 @@
 import * as Types from '../constants/ActionTypes'
 
-
 let cartItem = localStorage.getItem('cart')
-// console.log(JSON.parse(cartItem))
 
-let initialstate = JSON.parse(cartItem)
+let initialstate = cartItem ? JSON.parse(cartItem) : []
 
 let findProductInState = (state, product) => {
     let index = -1
@@ -32,7 +30,14 @@ const cart = (state = initialstate, actions) => {
                     quantity: 1
                 })
             }
-            console.log(state)
+            localStorage.setItem('cart', JSON.stringify(state))
+            return [...state]
+        case Types.DECREASE_CART:
+            index = findProductInState(state, product)
+            state[index].quantity -= 1
+            if (state[index].quantity === 0) {
+                state.splice(index, 1)
+            }
             localStorage.setItem('cart', JSON.stringify(state))
             return [...state]
         default:

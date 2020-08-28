@@ -6,9 +6,6 @@ import '../../css/client/ProductView.css'
 import '../../css/client/CartBtn.css'
 import { Link } from 'react-router-dom'
 import CartBtn from '../../components/client/CartBtn'
-// import { connect } from 'react-redux'
-// import { actGetAllProduct, actAddToCart } from '../../actions/index'
-// import Product from './Product';
 class ProductView extends Component {
     constructor(pros) {
         super(pros)
@@ -23,19 +20,19 @@ class ProductView extends Component {
     }
 
     render() {
-        let { products, id, onAddToCart, cart } = this.props
+        let { products, id, onAddToCart, cart, onCartBtnClick, onDecreaseCart } = this.props
         let product = products.find(product => product.id === parseInt(id))
         return (
             <div className="ProductView py-5">
                 <Container fluid="lg">
                     <Row>
-                        <Col xl="6" lg="6" className="mb-5 text-center img">
-                            <button className="btn back-btn">
-                                <Link to="/" style={{ textDecoration: 'none', color: 'rgb(0, 158, 127)' }} >
+                        <Col xl="6" lg="6" className="mb-5 text-center img d-plex">
+                            <Link to="/" style={{ textDecoration: 'none', color: 'rgb(0, 158, 127)' }} >
+                                <button className="btn back-btn">
                                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
                                     Back
-                                </Link>
-                            </button>
+                                </button>
+                            </Link>
                             <div className="img-wrapper">
                                 <img src={product.img} alt="" />
                             </div>
@@ -57,7 +54,7 @@ class ProductView extends Component {
                             <div className="price">
                                 ${product.price}
                             </div>
-                            <CartBtn onAddToCart={onAddToCart} product={product} cart={cart} />
+                            <CartBtn onAddToCart={onAddToCart} product={product} cart={cart} onCartBtnClick={onCartBtnClick} onDecreaseCart={onDecreaseCart} />
                             <div className="category-product">
                                 <Link to="/" className="btn">
                                     {product.category}

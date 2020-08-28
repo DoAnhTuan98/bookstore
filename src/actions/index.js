@@ -52,9 +52,24 @@ export const actAddToCart = (product, quantity) => {
     }
 }
 
+export const actDecreaseCart = (product, quantity) => {
+    return {
+        type: Types.DECREASE_CART,
+        product,
+        quantity
+    }
+}
+
 export const actGetOneProduct = (id) => {
     return {
         type: Types.GET_ONE_PRODUCT,
         id
     }
 }
+
+export const actCartBtnClick = () => {
+    return {
+        type: Types.CARTBTN_CLICK
+    }
+}
+

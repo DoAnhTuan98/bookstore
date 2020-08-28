@@ -6,7 +6,7 @@ import ProductView from '../../components/client/ProductView'
 import RelateItems from '../../components/client/RelateItems'
 import Product from '../../components/client/Product'
 import { connect } from 'react-redux'
-import { actGetAllProduct, actAddToCart } from '../../actions/index'
+import { actGetAllProduct, actAddToCart, actCartBtnClick, actDecreaseCart } from '../../actions/index'
 class Detail extends Component {
     showProduct = (products, id) => {
         let product = products.find(product => product.id === parseInt(id))
@@ -21,16 +21,15 @@ class Detail extends Component {
         return result
     }
     render() {
-        let { products, onAddToCart, cart } = this.props
-        console.log(cart)
+        let { products, onAddToCart, cart, onCartBtnClick, statusCartItem, onDecreaseCart } = this.props
         let { match } = this.props.match
         let id = match.params.id
         return (
             <div>
                 <Nav />
                 <Cart cart={cart} />
-                <CartItem cart={cart} />
-                <ProductView products={products} id={id} onAddToCart={onAddToCart} cart={cart} />
+                <CartItem cart={cart} onAddToCart={onAddToCart} onDecreaseCart={onDecreaseCart} />
+                <ProductView products={products} id={id} onAddToCart={onAddToCart} cart={cart} onCartBtnClick={onCartBtnClick} onDecreaseCart={onDecreaseCart} />
                 <RelateItems showProduct={this.showProduct} products={products} id={parseInt(id)} />
             </div>
         )
@@ -40,7 +39,8 @@ class Detail extends Component {
 const mapStateToProps = (state) => {
     return {
         cart: state.cart,
-        products: state.products
+        products: state.products,
+        statusCartItem: state.statusCartItem
     }
 }
 
@@ -51,6 +51,13 @@ const mapDispatchToProps = (dispatch) => {
         },
         onAddToCart: (product) => {
             dispatch(actAddToCart(product, 1))
+        },
+        onDecreaseCart: (product) => {
+            dispatch(actDecreaseCart(product, 1))
+        },
+
+        onCartBtnClick: () => {
+            dispatch(actCartBtnClick())
         }
     }
 }

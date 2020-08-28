@@ -29,7 +29,6 @@ class Cart extends Component {
 
     render() {
         let { cart } = this.props
-        console.log(cart)
         return (
             <div className="cart" onClick={this.openCartItem}>
                 <div className="item-amount">

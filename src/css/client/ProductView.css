@@ -5,7 +5,6 @@
 
 .ProductView .img {
     display: flex;
-    flex-direction: column;
 }
 
 .ProductView .img-wrapper {
