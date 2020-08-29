@@ -40,7 +40,7 @@ const mapStateToProps = (state) => {
     return {
         cart: state.cart,
         products: state.products,
-        statusCartItem: state.statusCartItem
+        statusCartItem: state.statusCartItem,
     }
 }
 

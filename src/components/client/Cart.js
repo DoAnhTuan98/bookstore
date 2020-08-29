@@ -30,7 +30,7 @@ class Cart extends Component {
     render() {
         let { cart } = this.props
         return (
-            <div className="cart" onClick={this.openCartItem}>
+            <div className={"cart"} onClick={this.openCartItem}>
                 <div className="item-amount">
                     <FontAwesomeIcon className="mr-2" icon={faShoppingBag} />
                     {cart.length > 0 ? this.totalQuantity(cart) : 0} {cart.length > 0 && this.totalQuantity(cart) < 2 ? 'item' : 'items'}

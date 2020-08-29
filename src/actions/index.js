@@ -73,3 +73,15 @@ export const actCartBtnClick = () => {
     }
 }
 
+export const actToggleProfileForm = () => {
+    return {
+        type: Types.TOGGLE_PROFILE_FORM
+    }
+}
+
+export const actLogin = (account) => {
+    return {
+        type: Types.LOGIN,
+        account
+    }
+}

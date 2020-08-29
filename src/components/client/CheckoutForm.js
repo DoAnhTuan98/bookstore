@@ -45,6 +45,7 @@ class CheckoutForm extends Component {
     render() {
         const { stripe } = this.props;
         let { name, email, address, city, district, phone, payment } = this.state
+        let { user } = this.props
         console.log(payment)
         return (
             <div className="checkout-form">
@@ -68,15 +69,15 @@ class CheckoutForm extends Component {
                         <h3 className="bt-header">Billing Address</h3>
                         <FormGroup>
                             <Label for="name">Name</Label>
-                            <Input type="email" name="email" id="name" autoComplete="off" value={name} />
+                            <Input type="email" name="email" id="name" autoComplete="off" value={user.name} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="email">Email</Label>
-                            <Input type="email" name="email" id="email" value={email} />
+                            <Input type="email" name="email" id="email" value={user.email} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="address">Address</Label>
-                            <Input type="email" name="email" id="address" value={address} />
+                            <Input type="email" name="email" id="address" value={user.address} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="city">City</Label>
