@@ -5,7 +5,7 @@ import CartItem from '../../components/client/CartItem'
 import Main from '../../components/client/Main'
 import { connect } from 'react-redux'
 import Product from '../../components/client/Product'
-import { actFilterCategory, actGetAllProduct, actGetOneProduct } from '../../actions/index'
+import { actFilterCategory, actGetAllProduct, actGetOneProduct, actAddToCart, actDecreaseCart } from '../../actions/index'
 class Home extends Component {
     showProducts = (products) => {
         let result = null
@@ -22,12 +22,12 @@ class Home extends Component {
     }
 
     render() {
-        let { products, cart } = this.props
+        let { products, cart, onAddToCart, onDecreaseCart } = this.props
         return (
             <div>
                 <Header />
                 <Cart cart={cart} />
-                <CartItem cart={cart} />
+                <CartItem cart={cart} onDecreaseCart={onDecreaseCart} onAddToCart={onAddToCart} />
                 <Main showProducts={this.showProducts} products={products} />
             </div>
         )
@@ -51,6 +51,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         onGetOneProduct: (id) => {
             dispatch(actGetOneProduct(id))
+        },
+        onAddToCart: (product) => {
+            dispatch(actAddToCart(product, 1))
+        },
+        onDecreaseCart: (product) => {
+            dispatch(actDecreaseCart(product))
         }
     }
 }

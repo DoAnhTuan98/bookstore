@@ -20,13 +20,14 @@ class CartItem extends Component {
     totalPrice = (cart) => {
         let totalPrice = null
         cart.forEach(element => {
-            totalPrice += element.product.price
+            totalPrice += element.product.price * element.quantity
         });
         return totalPrice
     }
 
     render() {
         let { statusCartItem, cart, onAddToCart, onDecreaseCart } = this.props
+        console.log(cart)
         let totalQuantity = null
         cart.forEach(element => {
             totalQuantity += element.quantity

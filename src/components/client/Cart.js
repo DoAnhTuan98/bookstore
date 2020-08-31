@@ -22,7 +22,7 @@ class Cart extends Component {
     totalPrice = (cart) => {
         let totalPrice = null
         cart.forEach(element => {
-            totalPrice += element.product.price
+            totalPrice += element.product.price * element.quantity
         });
         return totalPrice
     }
