@@ -60,6 +60,13 @@ export const actDecreaseCart = (product, quantity) => {
     }
 }
 
+export const actDeleteCart = (product) => {
+    return {
+        type: Types.DELETE_CART,
+        product
+    }
+}
+
 export const actGetOneProduct = (id) => {
     return {
         type: Types.GET_ONE_PRODUCT,
@@ -83,5 +90,12 @@ export const actLogin = (account) => {
     return {
         type: Types.LOGIN,
         account
+    }
+}
+
+export const actCreateOrder = (order) => {
+    return {
+        type: Types.CREATE_ORDER,
+        order
     }
 }

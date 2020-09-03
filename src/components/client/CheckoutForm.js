@@ -3,9 +3,9 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import '../../css/client/CheckoutForm.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBillAlt } from "@fortawesome/free-solid-svg-icons";
-
+// import { browserHistory } from 'react-router';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
-
+import { Redirect } from 'react-router-dom'
 // const stripe = useStripe()
 // const elements = useElements()
 
@@ -13,23 +13,58 @@ class CheckoutForm extends Component {
     constructor(pros) {
         super(pros)
         this.state = {
-            name: 'Đỗ Anh Tuấn',
-            email: 'doanhtuan@gmail.com',
-            address: 'số 2 Minh Khai',
-            city: 'Hà Nội',
-            district: 'Hai Bà Trưng',
-            phone: '0965432033',
-            payment: 'cash'
+            id: '',
+            name: '',
+            email: '',
+            address: '',
+            phone: '',
+            payment: '',
+            date: '',
+            totalPrice: '',
+            cartItem: '',
+            redirect: false
         }
     }
 
-    handleSubmit = async (event) => {
-        event.preventDefault();
-        const { stripe, elements } = this.props;
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: elements.getElement(CardElement),
+    totalPrice = (cart) => {
+        let totalPrice = null
+        cart.forEach(element => {
+            totalPrice += element.product.price * element.quantity
         });
+        return totalPrice
+    }
+
+    componentDidMount() {
+        let today = new Date()
+        let date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
+        let totalPrice = this.totalPrice(this.props.cart)
+        let cart = this.props.cart
+        let { id, name, email, address, phone } = this.props.user
+        this.setState({
+            id: id,
+            name: name,
+            email: email,
+            address: address,
+            phone: phone,
+            date: date,
+            totalPrice: totalPrice,
+            cartItem: cart,
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        // const { stripe, elements } = this.props;
+        // const { error, paymentMethod } = await stripe.createPaymentMethod({
+        //     type: 'card',
+        //     card: elements.getElement(CardElement),
+        // });
+        let order = { ...this.state }
+        delete order.redirect
+        this.props.onCreateOrder(order)
+        this.setState({
+            redirect: true
+        })
     };
 
 
@@ -42,18 +77,36 @@ class CheckoutForm extends Component {
         })
     }
 
+    totalQuantity = (cart) => {
+        let totalQuantity = null
+        cart.forEach(element => {
+            totalQuantity += element.quantity
+        });
+        return totalQuantity
+    }
+    totalPrice = (cart) => {
+        let totalPrice = null
+        cart.forEach(element => {
+            totalPrice += element.product.price * element.quantity
+        });
+        return totalPrice
+    }
+
     render() {
         const { stripe } = this.props;
-        let { name, email, address, city, district, phone, payment } = this.state
-        let { user } = this.props
-        console.log(payment)
+        let { payment, date, totalPrice, cartItem, redirect, id } = this.state
+        let { user, cart } = this.props
+        // console.log(this.state) 
+        if (redirect === true) {
+            return <Redirect to={`/order-received/${id}`} />
+        }
         return (
             <div className="checkout-form">
                 <div className='order-info'>
                     <h3>Your order</h3>
                     <div className="item">
-                        <div className="title">Sub Total(1item)</div>
-                        <div className="price">$0.00</div>
+                        <div className="title">Sub Total({this.totalQuantity(cart)})</div>
+                        <div className="price">${this.totalPrice(cart)}</div>
                     </div>
                     <div className="item">
                         <div className="title">Shipping Free</div>
@@ -61,7 +114,7 @@ class CheckoutForm extends Component {
                     </div>
                     <div className="item">
                         <div className="title">Total</div>
-                        <div className="price">$52.00</div>
+                        <div className="price">${this.totalPrice(cart)}</div>
                     </div>
                 </div>
                 <Form onSubmit={this.handleSubmit}>
@@ -69,17 +122,17 @@ class CheckoutForm extends Component {
                         <h3 className="bt-header">Billing Address</h3>
                         <FormGroup>
                             <Label for="name">Name</Label>
-                            <Input type="email" name="email" id="name" autoComplete="off" value={user.name} />
+                            <Input type="text" name="text" id="name" autoComplete="off" value={user.name} onChange={this.onHandleInput} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="email">Email</Label>
-                            <Input type="email" name="email" id="email" value={user.email} />
+                            <Input type="email" name="email" id="email" value={user.email} onChange={this.onHandleInput} />
                         </FormGroup>
                         <FormGroup>
                             <Label for="address">Address</Label>
-                            <Input type="email" name="email" id="address" value={user.address} />
+                            <Input type="text" name="address" id="address" value={user.address} onChange={this.onHandleInput} />
                         </FormGroup>
-                        <FormGroup>
+                        {/* <FormGroup>
                             <Label for="city">City</Label>
                             <Input type="select" name="select" id="city" value={city}>
                                 <option>Tỉnh/Thành Phố</option>
@@ -98,45 +151,48 @@ class CheckoutForm extends Component {
                                 <option>4</option>
                                 <option>5</option>
                             </Input>
-                        </FormGroup>
+                        </FormGroup> */}
                         <FormGroup>
                             <Label for="phone">Phone</Label>
-                            <Input type="email" name="email" id="phone" value={phone} />
+                            <Input type="text" name="phone" id="phone" value={user.phone} onChange={this.onHandleInput} />
                         </FormGroup>
                     </div>
+                    <div className="payment">
+                        <h3 className="bt-header">Select Payment Option</h3>
+                        <FormGroup className="d-flex justify-content-between mb-3 p-0">
+                            <Input
+                                type="radio"
+                                id="cash"
+                                name="payment"
+                                value="cash"
+                                onChange={this.onHandleInput}
+                                autoComplete="off"
+                            />{' '}
+                            <Label for="cash" check>
+                                <FontAwesomeIcon icon={faMoneyBillAlt} />
+                                <span>Cash</span>
+                            </Label>
+                            <Input
+                                type="radio"
+                                id="card"
+                                name="payment"
+                                value="card"
+                                onChange={this.onHandleInput}
+                                autoComplete="off"
+                            />{' '}
+                            <Label for="card" check>
+                                <FontAwesomeIcon icon={faCreditCard} />
+                                <span>Card</span>
+                            </Label>
+                        </FormGroup>
+                    </div>
+                    {payment === 'card' && <CardElement />}
+                    {/* <Link to="/order-received"> */}
+                    <Button type="submit" className="btn w-100" disabled={!stripe}>Proceed to Checkout</Button>
+                    {/* </Link> */}
                 </Form>
-                <div className="payment">
-                    <h3 className="bt-header">Select Payment Option</h3>
-                    <FormGroup className="d-flex justify-content-between mb-3 p-0">
-                        <Input
-                            type="radio"
-                            id="cash"
-                            name="payment"
-                            value="cash"
-                            onChange={this.onHandleInput}
-                            autoComplete="off"
-                        />{' '}
-                        <Label for="cash" check>
-                            <FontAwesomeIcon icon={faMoneyBillAlt} />
-                            <span>Cash</span>
-                        </Label>
-                        <Input
-                            type="radio"
-                            id="card"
-                            name="payment"
-                            value="card"
-                            onChange={this.onHandleInput}
-                            autoComplete="off"
-                        />{' '}
-                        <Label for="card" check>
-                            <FontAwesomeIcon icon={faCreditCard} />
-                            <span>Card</span>
-                        </Label>
-                    </FormGroup>
-                </div>
-                {payment === 'card' && <CardElement />}
-                <Button type="submit" className="btn w-100" disabled={!stripe}>Proceed to Checkout</Button>
             </div>
+
         )
     }
 }

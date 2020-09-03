@@ -5,9 +5,11 @@ import CheckoutForm from '../../components/client/CheckoutForm'
 import '../../css/client/Checkout.css'
 import { ElementsConsumer } from '@stripe/react-stripe-js';
 import { connect } from 'react-redux'
+import { actCreateOrder } from '../../actions/index'
 class Checkout extends Component {
     render() {
-        let { user } = this.props
+        let { user, cart, onCreateOrder, history } = this.props
+        console.log(history)
         return (
             <div>
                 <Nav />
@@ -17,7 +19,7 @@ class Checkout extends Component {
                     </div>
                     <ElementsConsumer>
                         {({ stripe, elements }) => (
-                            <CheckoutForm stripe={stripe} elements={elements} user={user} />
+                            <CheckoutForm stripe={stripe} elements={elements} user={user} cart={cart} onCreateOrder={onCreateOrder} history={history} />
                         )}
                     </ElementsConsumer>
                 </div>
@@ -29,8 +31,17 @@ class Checkout extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user
+        user: state.user,
+        cart: state.cart
     }
 }
 
-export default connect(mapStateToProps, null)(Checkout)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onCreateOrder: (order) => {
+            dispatch(actCreateOrder(order))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

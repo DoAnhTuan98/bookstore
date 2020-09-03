@@ -4,16 +4,34 @@ import UserSideBar from '../../components/client/UserSideBar'
 import OrderDetails from '../../components/client/OrderDetails'
 import Order from '../../components/client/Order'
 import '../../css/client/Orders.css'
-
+import { connect } from 'react-redux'
 class Orders extends Component {
     constructor(pros) {
         super(pros)
         this.state = {
-            orders: []
+            indexOrderSelected: 0
         }
     }
+
+    showOrder = (orders) => {
+        let result = null
+        if (orders.length > 0) {
+            result = orders.map((order, index) => {
+                return <Order key={index} index={index} order={order} onGetIndexOrderSelected={this.getIndexOrderSelected} indexOrderSelected={this.state.indexOrderSelected} />
+            })
+        }
+        return result
+    }
+
+    getIndexOrderSelected = (index) => {
+        this.setState({
+            indexOrderSelected: index
+        })
+    }
+
     render() {
-        let { orders } = this.state
+        let { orders } = this.props
+        let { indexOrderSelected } = this.state
         return (
             <div>
                 <Nav />
@@ -36,12 +54,13 @@ class Orders extends Component {
                                         padding: "40px 0px"
                                     }}>No Order Found</span>
                                 } */}
+                                {/* <Order />
                                 <Order />
                                 <Order />
-                                <Order />
-                                <Order />
+                                <Order /> */}
+                                {this.showOrder(orders)}
                             </div>
-                            <OrderDetails />
+                            <OrderDetails orders={orders} indexOrderSelected={indexOrderSelected} />
                         </div>
                     }
                 </div>
@@ -51,4 +70,10 @@ class Orders extends Component {
     }
 }
 
-export default Orders
+const mapStateToProps = (state) => {
+    return {
+        orders: state.order
+    }
+}
+
+export default connect(mapStateToProps, null)(Orders)

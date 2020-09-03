@@ -40,6 +40,11 @@ const cart = (state = initialstate, actions) => {
             }
             localStorage.setItem('cart', JSON.stringify(state))
             return [...state]
+        case Types.DELETE_CART:
+            index = findProductInState(state, product)
+            state.splice(index, 1)
+            localStorage.setItem('cart', JSON.stringify(state))
+            return [...state]
         default:
             return state
     }

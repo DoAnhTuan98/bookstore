@@ -6,22 +6,24 @@ class Order extends Component {
 
     }
     render() {
+        let { order, index, onGetIndexOrderSelected, indexOrderSelected } = this.props
+        console.log(index, indexOrderSelected)
         return (
-            <div className="order">
-                <div className="w-100 order-active">
-                    <div className="header">Order#1</div>
+            <div className={index === indexOrderSelected ? 'order-active order' : 'order'} onClick={() => onGetIndexOrderSelected(index)}>
+                <div className="w-100">
+                    <div className="header">Order#{index + 1}</div>
                     <div className="body">
                         <div className="order-info">
                             Order Date:
-                            <span>May 29, 2020</span>
+                            <span>{order.date}</span>
                         </div>
                         <div className="order-info">
                             Order Id:
-                            <span>5ed0a7b1b75aab1b3ebbf9e1</span>
+                            <span>{order.id}</span>
                         </div>
                         <div className="order-info">
                             Total Price:
-                            <span>$0.00</span>
+                            <span>${order.totalPrice}</span>
                         </div>
                     </div>
                 </div>

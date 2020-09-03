@@ -54,8 +54,8 @@
     color: rgb(13, 17, 54);
 }
 
-.my-order .order:active {
-    border: 2px solid rgb(0, 158, 127);
+.my-order .order-active {
+    border: 2px solid rgb(0, 158, 127) !important;
 }
 
 /* order-detail  */

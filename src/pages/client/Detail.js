@@ -6,7 +6,7 @@ import ProductView from '../../components/client/ProductView'
 import RelateItems from '../../components/client/RelateItems'
 import Product from '../../components/client/Product'
 import { connect } from 'react-redux'
-import { actGetAllProduct, actAddToCart, actCartBtnClick, actDecreaseCart } from '../../actions/index'
+import { actGetAllProduct, actAddToCart, actCartBtnClick, actDecreaseCart, actDeleteCart } from '../../actions/index'
 class Detail extends Component {
     showProduct = (products, id) => {
         let product = products.find(product => product.id === parseInt(id))
@@ -21,7 +21,7 @@ class Detail extends Component {
         return result
     }
     render() {
-        let { products, onAddToCart, cart, onCartBtnClick, statusCartItem, onDecreaseCart } = this.props
+        let { products, onAddToCart, cart, onCartBtnClick, statusCartItem, onDecreaseCart, onDeleteCart } = this.props
         console.log(cart)
         let { match } = this.props.match
         let id = match.params.id
@@ -29,7 +29,7 @@ class Detail extends Component {
             <div>
                 <Nav />
                 <Cart cart={cart} />
-                <CartItem cart={cart} onAddToCart={onAddToCart} onDecreaseCart={onDecreaseCart} />
+                <CartItem cart={cart} onAddToCart={onAddToCart} onDecreaseCart={onDecreaseCart} onDeleteCart={onDeleteCart} />
                 <ProductView products={products} id={id} onAddToCart={onAddToCart} cart={cart} onCartBtnClick={onCartBtnClick} onDecreaseCart={onDecreaseCart} />
                 <RelateItems showProduct={this.showProduct} products={products} id={parseInt(id)} />
             </div>
@@ -56,9 +56,11 @@ const mapDispatchToProps = (dispatch) => {
         onDecreaseCart: (product) => {
             dispatch(actDecreaseCart(product, 1))
         },
-
         onCartBtnClick: () => {
             dispatch(actCartBtnClick())
+        },
+        onDeleteCart: (product) => {
+            dispatch(actDeleteCart(product))
         }
     }
 }

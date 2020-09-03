@@ -3,14 +3,40 @@ import { Progress, Table } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
 class OrderDetails extends Component {
-    constructor(pros) {
-        super(pros)
-        this.state = {
-            order: []
-        }
+    showItems = (cartItems) => {
+        let result = null
+        result = cartItems.map((cartItem, index) =>
+            <tr key={index}>
+                <th scope="row">
+                    <div className="img-wrapper">
+                        <img src={cartItem.product.img} alt="" />
+                    </div>
+                </th>
+                <td>
+                    <div className="title">{cartItem.product.name}</div>
+                    <div className="price">${cartItem.product.price}</div>
+                </td>
+                <td>
+                    {cartItem.quantity}
+                </td>
+                <td>${cartItem.quantity * cartItem.product.price}.00</td>
+            </tr>
+        )
+        return result
     }
     render() {
-        let { order } = this.state
+        let { orders, indexOrderSelected } = this.props
+        let orderSelected = null
+        // if (indexOrderSelected) {
+        //     orderSelected = orders[indexOrderSelected]
+        // }
+        orderSelected = orders[indexOrderSelected]
+        // else {
+        //     orderSelected = orders[0]
+        // }
+        console.log(orderSelected)
+        let cartItems = orderSelected.cartItem
+        console.log(cartItems)
         return (
             <div className="order-detail">
                 <h3 className="bt-header">Order Details</h3>
@@ -28,14 +54,14 @@ class OrderDetails extends Component {
                     <div className="details">
                         <div className="address">
                             <div className="title">Delivery Address</div>
-                            <span>Minh Khai,Hai Ba Trung,Ha Noi</span>
+                            <span>{orderSelected.address}</span>
                             <div className="title mt-4">Payment Method</div>
-                            <span>Online Payment</span>
+                            <span>{orderSelected.payment === 'card' ? 'Online Payment' : 'Cash On Delivery'}</span>
                         </div>
                         <div className="info">
                             <div>
                                 Sub Total
-                                    <span>$0.00</span>
+                                    <span>${orderSelected.totalPrice}</span>
                             </div>
                             <div>
                                 Discount
@@ -47,7 +73,7 @@ class OrderDetails extends Component {
                             </div>
                             <div>
                                 Total
-                                    <span>$0.00</span>
+                                    <span>${orderSelected.totalPrice}</span>
                             </div>
                         </div>
                     </div>
@@ -85,7 +111,7 @@ class OrderDetails extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                {/* <tr>
                                     <th scope="row">
                                         <div className="img-wrapper">
                                             <img src="https://res.cloudinary.com/dofqucuyy/image/upload/v1596887706/firewatch-5120x2880-4k-8k-art-forest-13610_yy7fad.jpg" alt="" />
@@ -99,7 +125,8 @@ class OrderDetails extends Component {
                                         1
                                     </td>
                                     <td>${1 * 70}.00</td>
-                                </tr>
+                                </tr> */}
+                                {this.showItems(cartItems)}
                             </tbody>
                         </Table>
                     </div>

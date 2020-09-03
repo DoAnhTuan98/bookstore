@@ -3,6 +3,7 @@ import { Button, Modal } from 'reactstrap'
 import SignIn from './SignIn'
 import SignUp from './SignUp'
 import User from './User'
+import { Link } from 'react-router-dom'
 import '../../css/client/Nav.css'
 import { connect } from 'react-redux'
 import { actOpenFormSignIn, actToggleProfileForm, actLogin } from '../../actions/index'
@@ -40,7 +41,9 @@ class Nav extends Component {
         return (
             <div className="Nav">
                 <div className="logo">
-                    <img alt="" src="https://res.cloudinary.com/dofqucuyy/image/upload/v1585755124/Books/logo_gtuxyy.svg" />
+                    <Link to="/">
+                        <img alt="" src="https://res.cloudinary.com/dofqucuyy/image/upload/v1585755124/Books/logo_gtuxyy.svg" />
+                    </Link>
                 </div>
                 <div className="user-btn">
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-dialog modal-dialog-centered" external={externalCloseBtn}>

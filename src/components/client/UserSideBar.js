@@ -11,17 +11,17 @@ class UserSideBar extends Component {
             <div className="user-side-bar d-none d-xl-block">
                 <ul className="nav">
                     <li className="nav-item">
-                        <Link to="#">
+                        <Link to="order">
                             Your order
                         </Link>
                     </li>
                     <li className="nav-item mb-5">
-                        <Link to="#">
+                        <Link to="/checkout">
                             Checkout
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="#">
+                        <Link to="profile">
                             Your Account Settings
                         </Link>
                     </li>

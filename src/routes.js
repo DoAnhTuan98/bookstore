@@ -19,12 +19,12 @@ const routes = [
     {
         path: '/checkout',
         exact: true,
-        main: () => <Checkout />
+        main: (history) => <Checkout history={history} />
     },
     {
-        path: '/order-received',
+        path: '/order-received/:id',
         exact: true,
-        main: () => <OrderReceived />
+        main: (match) => <OrderReceived match={match} />
     },
     {
         path: '/order',

@@ -13,7 +13,7 @@ const statusCartitem = (state = initialstate, actions) => {
             state = !state
             return state
         case Types.CARTBTN_CLICK:
-            state = !state
+            state = true
             // setTimeout(() => {
             //     return state = false
             // }, 2000)

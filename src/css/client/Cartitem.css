@@ -112,6 +112,12 @@
     border-radius: 30px;
 }
 
+.cart-item .disable-btn {
+    color: rgb(144, 144, 144) !important;
+    background-color: rgb(241, 241, 241) !important;
+    border-color: rgb(241, 241, 241) !important;
+}
+
 .cart-item .footer span {
     color: #fff;
     font-weight: 600;

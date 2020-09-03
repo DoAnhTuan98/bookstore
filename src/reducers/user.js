@@ -5,7 +5,7 @@ let initialstate = {
     name: 'Anh Tuan',
     email: 'doanhtuan@gmail.com',
     password: 'tuan123',
-    address: 'so 2 minh khai',
+    address: 'số 2 Minh Khai , Hai Bà Trưng , Hà Nội',
     phone: '0963585663',
     cart: []
 }

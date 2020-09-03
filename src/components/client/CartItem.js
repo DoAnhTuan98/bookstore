@@ -5,6 +5,7 @@ import '../../css/client/Cartitem.css'
 import { connect } from 'react-redux'
 import { actCloseCartItem } from '../../actions/index'
 import QuantityAdjustment from '../../components/client/QuantityAdjustment'
+import { Link } from 'react-router-dom'
 class CartItem extends Component {
     constructor(pros) {
         super(pros)
@@ -26,7 +27,7 @@ class CartItem extends Component {
     }
 
     render() {
-        let { statusCartItem, cart, onAddToCart, onDecreaseCart } = this.props
+        let { statusCartItem, cart, onAddToCart, onDecreaseCart, onDeleteCart } = this.props
         console.log(cart)
         let totalQuantity = null
         cart.forEach(element => {
@@ -44,7 +45,7 @@ class CartItem extends Component {
                     <div className="quantity">{item.quantity} pc(s)</div>
                 </div>
                 <div className="total-price">${item.product.price * item.quantity}</div>
-                <FontAwesomeIcon icon={faTimes} className="ml-4" />
+                <FontAwesomeIcon icon={faTimes} className="ml-4" onClick={() => onDeleteCart(item.product)} />
             </div>
         )
         return (
@@ -71,14 +72,14 @@ class CartItem extends Component {
                     }
                     {cartItems}
                 </div>
-                <a className={cart.length === 0 ? "footer disable-btn" : "footer"} href="#">
+                <Link className={cart.length === 0 ? "footer disable-btn" : "footer"} to="/checkout">
                     <span style={{
                         color: [cartItems.length === 0 ? 'rgb(0, 158, 127)' : '']
                     }}>Checkout</span>
                     <div className="total">
                         ${cart.length > 0 ? this.totalPrice(cart) : 0.00}
                     </div>
-                </a>
+                </Link>
             </div>
         )
     }
