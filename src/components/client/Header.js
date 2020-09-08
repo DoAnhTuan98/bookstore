@@ -9,12 +9,13 @@ import Banner from './Banner'
 class Header extends Component {
 
     render() {
+        let { onFindProduct } = this.props
         return (
             <header>
                 {/* Nav  */}
                 <Nav />
                 {/* slider  */}
-                <Banner />
+                <Banner onFindProduct={onFindProduct} />
             </header>
         )
     }

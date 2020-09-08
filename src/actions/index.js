@@ -1,4 +1,5 @@
 import * as Types from '../constants/ActionTypes'
+import callApi from '../utils/apiCaller'
 
 export const actOpenCartItem = () => {
     return {
@@ -24,23 +25,48 @@ export const actOpenFormSignIn = () => {
     }
 }
 
-export const actFilterCategory = (category) => {
+export const actFilterCategoryRequest = (category) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/product?category=${category}`, 'GET', null)
+        let products = res.data
+        dispatch(actFilterCategory(products))
+    }
+}
+
+export const actFilterCategory = (products) => {
     return {
         type: Types.FILTER_CATEGORY,
-        category
+        products
     }
 }
 
-export const actGetAllProduct = () => {
+export const actGetAllProductRequest = () => {
+    return async (dispatch) => {
+        const res = await callApi('api/product', 'GET', null)
+        let products = res.data
+        dispatch(actGetAllProduct(products))
+    }
+}
+
+export const actGetAllProduct = (products) => {
     return {
-        type: Types.GET_ALL_PRODUCT
+        type: Types.GET_ALL_PRODUCT,
+        products
     }
 }
 
-export const actFindProduct = (name) => {
+export const actFindProductRequest = (name) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/product?name=${name}`)
+        let product = res.data
+        dispatch(actFindProduct(product))
+    }
+}
+
+export const actFindProduct = (product) => {
     return {
         type: Types.FIND_PRODUCT,
-        name
+        product
     }
 }
 
@@ -67,6 +93,12 @@ export const actDeleteCart = (product) => {
     }
 }
 
+export const actRemoveAllCart = () => {
+    return {
+        type: Types.REMOVE_ALL_CART
+    }
+}
+
 export const actGetOneProduct = (id) => {
     return {
         type: Types.GET_ONE_PRODUCT,
@@ -86,10 +118,27 @@ export const actToggleProfileForm = () => {
     }
 }
 
-export const actLogin = (account) => {
+export const actLoginRequest = (account) => {
+    return (dispatch) => {
+        callApi('api/auth/sign-in', 'POST', account).then(res => {
+            dispatch(actLogin(res.data)) // res.data = user
+        }).catch(error => console.log(error.response.data.message))
+        // console.log(res.message)
+        // let user = res.data
+        // dispatch(actLogin(user))
+    }
+}
+
+export const actLogin = (user) => {
     return {
         type: Types.LOGIN,
-        account
+        user
+    }
+}
+
+export const actLogout = () => {
+    return {
+        type: Types.LOGOUT
     }
 }
 
@@ -97,5 +146,52 @@ export const actCreateOrder = (order) => {
     return {
         type: Types.CREATE_ORDER,
         order
+    }
+}
+
+export const actGetAllOrderRequest = (user) => {
+    return async (dispatch) => {
+        console.log(user.email)
+        const res = await callApi(`api/order?email=${user.email}`, 'GET', null)
+        let orders = res.data
+        console.log(orders)
+        dispatch(actGetAllOrder(orders))
+    }
+}
+
+export const actGetAllOrder = (orders) => {
+    return {
+        type: Types.GET_ALL_ORDER,
+        orders
+    }
+}
+
+export const actUpdateUserRequest = (newUserInfo) => {
+    return async (dispatch) => {
+        const res = await callApi('api/auth/update-user', 'PUT', newUserInfo)
+        let oldUser = JSON.parse(localStorage.getItem('user'))
+        let token = oldUser.accessToken
+        let userUpdated = res.data
+        userUpdated.accessToken = token
+        dispatch(actUpdateUser(userUpdated))
+    }
+}
+
+export const actUpdateUser = (user) => {
+    return {
+        type: Types.UPDATE_USERPROFILE,
+        user
+    }
+}
+
+export const actOpenAlertLogin = () => {
+    return {
+        type: Types.OPEN_ALERT_LOGIN
+    }
+}
+
+export const actOpenAlertSave = () => {
+    return {
+        type: Types.OPEN_ALERT_SAVE
     }
 }

@@ -4,9 +4,47 @@ import UserSideBar from '../../components/client/UserSideBar'
 import Nav from '../../components/client/Nav'
 import '../../css/client/UserProfile.css'
 import { connect } from 'react-redux'
+import { actUpdateUserRequest } from '../../actions/index'
 class Userprofle extends Component {
-    render() {
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: '',
+            email: '',
+            address: '',
+            phone: ''
+        }
+    }
+
+    componentDidMount() {
         let { user } = this.props
+        let name = user.name
+        let email = user.email
+        let address = user.address
+        let phone = user.phone
+        this.setState({
+            name: name,
+            email: email,
+            address: address,
+            phone: phone
+        })
+    }
+
+    handleChange = (e) => {
+        let target = e.target
+        let name = target.name
+        let value = target.value
+        this.setState({
+            [name]: value
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        let user = this.state
+        this.props.onUpdateUser(user)
+    }
+    render() {
+        let { name, email, address, phone } = this.state
         return (
             <React.Fragment>
                 <Nav />
@@ -19,35 +57,27 @@ class Userprofle extends Component {
                         <div className="header">
                             <h1>Your Profile</h1>
                         </div>
-                        <Form>
+                        <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label for="name">
                                     Name
                             <span className="ml-1 text-danger">*</span>
                                 </Label>
-                                <Input id="name" type="text" name="name" autoComplete="off" value={user.name} />
+                                <Input id="name" type="text" name="name" autoComplete="off" value={name} onChange={this.handleChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="email">
                                     Email
                             <span className="ml-1 text-danger">*</span>
                                 </Label>
-                                <Input id="email" type="email" name="email" autoComplete="off" value={user.email} />
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="password">
-                                    Password
-                            <span className="ml-1 text-danger">*</span>
-                                </Label>
-                                <Input id="password" type="text" name="password" autoComplete="off" value={user.password} />
-                                {/* {errors.password && <div className="validation">{errors.password}</div>} */}
+                                <Input id="email" type="email" name="email" autoComplete="off" value={email} onChange={this.handleChange} />
                             </FormGroup>
                             <FormGroup>
                                 <Label for="address">
                                     Address
                             <span className="ml-1 text-danger">*</span>
                                 </Label>
-                                <Input id="address" type="text" name="address" autoComplete="off" value={user.address} />
+                                <Input id="address" type="text" name="address" autoComplete="off" value={address} onChange={this.handleChange} />
                                 {/* {errors.address && <div className="validation">{errors.address}</div>} */}
                             </FormGroup>
                             <FormGroup>
@@ -55,7 +85,7 @@ class Userprofle extends Component {
                                     Phone
                             <span className="ml-1 text-danger">*</span>
                                 </Label>
-                                <Input autoComplete="off" id="phone" type="text" name="phone" value={user.phone} />
+                                <Input autoComplete="off" id="phone" type="text" name="phone" value={phone} onChange={this.handleChange} />
                                 {/* {errors.phone && <div className="validation">{errors.phone}</div>} */}
                             </FormGroup>
                             <Button size="lg" block type="submit">
@@ -76,4 +106,12 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, null)(Userprofle)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdateUser: (user) => {
+            dispatch(actUpdateUserRequest(user))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Userprofle)

@@ -5,17 +5,25 @@ import CartItem from '../../components/client/CartItem'
 import ProductView from '../../components/client/ProductView'
 import RelateItems from '../../components/client/RelateItems'
 import Product from '../../components/client/Product'
+// import Alert from '../../components/Alert'
 import { connect } from 'react-redux'
 import { actGetAllProduct, actAddToCart, actCartBtnClick, actDecreaseCart, actDeleteCart } from '../../actions/index'
 class Detail extends Component {
     showProduct = (products, id) => {
-        let product = products.find(product => product.id === parseInt(id))
+        let product = products.find(product => product._id === id)
         let category = product.category
         let relateitems = products.filter(product => product.category === category)
         let result = null
         if (relateitems.length > 0) {
             result = relateitems.map((product, index) => {
-                return <Product key={index} product={product} type="related" cart={this.props.cart} />
+                return <Product
+                    key={index}
+                    product={product}
+                    type="related"
+                    cart={this.props.cart}
+                    onAddToCart={this.props.onAddToCart}
+                    onCartBtnClick={this.props.onCartBtnClick}
+                    onDecreaseCart={this.props.onDecreaseCart} />
             })
         }
         return result
@@ -27,11 +35,12 @@ class Detail extends Component {
         let id = match.params.id
         return (
             <div>
+                {/* <Alert /> */}
                 <Nav />
                 <Cart cart={cart} />
                 <CartItem cart={cart} onAddToCart={onAddToCart} onDecreaseCart={onDecreaseCart} onDeleteCart={onDeleteCart} />
                 <ProductView products={products} id={id} onAddToCart={onAddToCart} cart={cart} onCartBtnClick={onCartBtnClick} onDecreaseCart={onDecreaseCart} />
-                <RelateItems showProduct={this.showProduct} products={products} id={parseInt(id)} />
+                <RelateItems showProduct={this.showProduct} products={products} id={id} />
             </div>
         )
     }

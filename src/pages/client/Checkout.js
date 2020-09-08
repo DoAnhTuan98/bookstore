@@ -5,10 +5,10 @@ import CheckoutForm from '../../components/client/CheckoutForm'
 import '../../css/client/Checkout.css'
 import { ElementsConsumer } from '@stripe/react-stripe-js';
 import { connect } from 'react-redux'
-import { actCreateOrder } from '../../actions/index'
+import { actCreateOrder, actCloseCartItem, actRemoveAllCart } from '../../actions/index'
 class Checkout extends Component {
     render() {
-        let { user, cart, onCreateOrder, history } = this.props
+        let { user, cart, onCreateOrder, history, onCloseCartItem, onRemoveAllCart } = this.props
         console.log(history)
         return (
             <div>
@@ -19,7 +19,16 @@ class Checkout extends Component {
                     </div>
                     <ElementsConsumer>
                         {({ stripe, elements }) => (
-                            <CheckoutForm stripe={stripe} elements={elements} user={user} cart={cart} onCreateOrder={onCreateOrder} history={history} />
+                            <CheckoutForm
+                                stripe={stripe}
+                                elements={elements}
+                                user={user}
+                                cart={cart}
+                                onCreateOrder={onCreateOrder}
+                                history={history}
+                                onCloseCartItem={onCloseCartItem}
+                                onRemoveAllCart={onRemoveAllCart}
+                            />
                         )}
                     </ElementsConsumer>
                 </div>
@@ -40,6 +49,12 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onCreateOrder: (order) => {
             dispatch(actCreateOrder(order))
+        },
+        onCloseCartItem: () => {
+            dispatch(actCloseCartItem())
+        },
+        onRemoveAllCart: () => {
+            dispatch(actRemoveAllCart())
         }
     }
 }

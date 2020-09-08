@@ -3,11 +3,11 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import '../../css/client/CheckoutForm.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBillAlt } from "@fortawesome/free-solid-svg-icons";
-// import { browserHistory } from 'react-router';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
 import { Redirect } from 'react-router-dom'
-// const stripe = useStripe()
-// const elements = useElements()
+import callApi from '../../utils/apiCaller';
+import axios from 'axios'
+
 
 class CheckoutForm extends Component {
     constructor(pros) {
@@ -22,7 +22,8 @@ class CheckoutForm extends Component {
             date: '',
             totalPrice: '',
             cartItem: '',
-            redirect: false
+            redirect: false,
+            error: false
         }
     }
 
@@ -39,9 +40,8 @@ class CheckoutForm extends Component {
         let date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`
         let totalPrice = this.totalPrice(this.props.cart)
         let cart = this.props.cart
-        let { id, name, email, address, phone } = this.props.user
+        let { name, email, address, phone } = this.props.user
         this.setState({
-            id: id,
             name: name,
             email: email,
             address: address,
@@ -52,19 +52,72 @@ class CheckoutForm extends Component {
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault();
-        // const { stripe, elements } = this.props;
-        // const { error, paymentMethod } = await stripe.createPaymentMethod({
-        //     type: 'card',
-        //     card: elements.getElement(CardElement),
-        // });
+        const { stripe, elements } = this.props;
         let order = { ...this.state }
         delete order.redirect
-        this.props.onCreateOrder(order)
-        this.setState({
-            redirect: true
-        })
+        delete order.id
+        delete order.error
+        // this.props.onCreateOrder(order)
+
+        if (order.payment === 'cash') {
+            let res = await callApi('api/order', 'POST', order)
+            console.log(res.data)
+            let id = res.data._id
+            this.props.onCreateOrder(res.data)
+            this.props.onRemoveAllCart()
+            this.props.onCloseCartItem()
+            this.setState({
+                id: id,
+                redirect: true
+            })
+        }
+
+        if (order.payment === 'card') {
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+                type: 'card',
+                card: elements.getElement(CardElement),
+            });
+            if (!error) {
+                // console.log(paymentMethod)
+                // const { id } = paymentMethod
+                // const { data } = await axios.post('http://localhost:9000/api/charge', { id, amount: order.totalPrice * 100, order })
+                // console.log(data)
+                // if (data) {
+                //     let res = await callApi('api/order', 'POST', order)
+                //     let id = res.data._id
+                //     this.props.onCreateOrder(res.data)
+                //     this.setState({
+                //         id: id,
+                //         redirect: true
+                //     })
+                // }
+                // else {
+                //     this.setState({
+                //         error: true
+                //     })
+                // }
+                try {
+                    const { id } = paymentMethod
+                    const { data } = await axios.post('http://localhost:9000/api/charge', { id, amount: order.totalPrice * 100, order })
+                    let res = await callApi('api/order', 'POST', order)
+                    let id_neworder = res.data._id
+                    this.props.onCreateOrder(res.data)
+                    this.props.onRemoveAllCart()
+                    this.props.onCloseCartItem()
+                    this.setState({
+                        id: id_neworder,
+                        redirect: true
+                    })
+                } catch (error) {
+                    console.log(error)
+                    this.setState({
+                        error: true
+                    })
+                }
+            }
+        }
     };
 
 
@@ -75,6 +128,7 @@ class CheckoutForm extends Component {
         this.setState({
             [name]: value
         })
+        // console.log(this.state)
     }
 
     totalQuantity = (cart) => {
@@ -94,8 +148,9 @@ class CheckoutForm extends Component {
 
     render() {
         const { stripe } = this.props;
-        let { payment, date, totalPrice, cartItem, redirect, id } = this.state
+        let { payment, redirect, id, error } = this.state
         let { user, cart } = this.props
+        // console.log(user)
         // console.log(this.state) 
         if (redirect === true) {
             return <Redirect to={`/order-received/${id}`} />
@@ -187,9 +242,8 @@ class CheckoutForm extends Component {
                         </FormGroup>
                     </div>
                     {payment === 'card' && <CardElement />}
-                    {/* <Link to="/order-received"> */}
+                    {error === true && <p style={{ color: 'red', textAlign: "center", marginTop: "5px" }}>Your card's security code is incorrect.</p>}
                     <Button type="submit" className="btn w-100" disabled={!stripe}>Proceed to Checkout</Button>
-                    {/* </Link> */}
                 </Form>
             </div>
 

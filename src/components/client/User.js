@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import '../../css/client/User.css'
 class User extends Component {
     render() {
-        let { onToggleProfileForm, statusProfileForm, user } = this.props
+        let { onToggleProfileForm, statusProfileForm, user, onLogout } = this.props
+        console.log(user)
         return (
             <div className="User h-100">
                 <div className="welcome" onClick={onToggleProfileForm}>
@@ -22,7 +23,7 @@ class User extends Component {
                         <Link to="/order">My Orders</Link>
                     </li>
                     <li className={statusProfileForm ? "item-active" : "item"}>
-                        <Link to="/">Logout</Link>
+                        <Link to="/" onClick={onLogout}>Logout</Link>
                     </li>
                 </ul>
             </div>

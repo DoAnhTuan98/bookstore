@@ -3,20 +3,16 @@ import { Container, Row } from 'reactstrap'
 import Category from './Category'
 import Products from './Products'
 class Main extends Component {
-    constructor(pros) {
-        super(pros)
-
-    }
     render() {
-        let { products } = this.props
+        let { products, perPage, totalProducts, paginate, onFilterProducts, onGetAllProduct } = this.props
         return (
             <main className="main">
                 <Container fluid={true}>
                     <Row>
                         {/* category  */}
-                        <Category />
+                        <Category onFilterProducts={onFilterProducts} paginate={paginate} />
                         {/* Products  */}
-                        <Products products={products}>
+                        <Products products={products} perPage={perPage} totalProducts={totalProducts} paginate={paginate} onGetAllProduct={onGetAllProduct}>
                             {this.props.showProducts}
                         </Products>
                     </Row>

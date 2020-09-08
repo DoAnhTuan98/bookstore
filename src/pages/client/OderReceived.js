@@ -4,12 +4,22 @@ import { Button } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import '../../css/client/OrderReceived.css'
 import { connect } from 'react-redux'
+
 class OrderReceived extends Component {
+
+    totalQuantity = (cart) => {
+        let totalQuantity = null
+        cart.forEach(element => {
+            totalQuantity += element.quantity
+        });
+        return totalQuantity
+    }
     render() {
         let { order } = this.props
+        console.log(order)
         let { match } = this.props.match
         let id = match.params.id
-        let orderCurrently = order.find(element => element.id === id)
+        let orderCurrently = order.find(element => element._id === id)
         console.log(orderCurrently)
         return (
             <div>
@@ -27,7 +37,7 @@ class OrderReceived extends Component {
                             <div className="info">
                                 <div className="info-data">
                                     <div className="info-header">Order Id</div>
-                                    <p>{orderCurrently.id}</p>
+                                    <p>{orderCurrently._id}</p>
                                 </div>
                                 <div className="info-data">
                                     <div className="info-header">Date</div>
@@ -47,7 +57,7 @@ class OrderReceived extends Component {
                             <h3 className="bt-header">Order Details</h3>
                             <div className="detail-info">
                                 <div className="info-header m-0">Total Item</div>
-                                <p>1 Item</p>
+                                <p>{this.totalQuantity(orderCurrently.cartItem)}{this.totalQuantity(orderCurrently.cartItem) < 2 ? "Item" : "Items"}</p>
                             </div>
                             <div className="detail-info">
                                 <div className="info-header m-0">Order Time</div>
@@ -85,5 +95,6 @@ const mapStateToProps = (state) => {
         order: state.order
     }
 }
+
 
 export default connect(mapStateToProps, null)(OrderReceived)

@@ -54,3 +54,10 @@
     text-decoration: underline;
     font-weight: 600;
 }
+
+.validation {
+    margin: 0 0 10px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #de5959;
+}

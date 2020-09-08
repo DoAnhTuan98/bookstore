@@ -7,7 +7,7 @@ let initialstate = cartItem ? JSON.parse(cartItem) : []
 let findProductInState = (state, product) => {
     let index = -1
     for (let i = 0; i < state.length; i++) {
-        if (state[i].product.id === product.id) {
+        if (state[i].product._id === product._id) {
             index = i
             break
         }
@@ -44,6 +44,9 @@ const cart = (state = initialstate, actions) => {
             index = findProductInState(state, product)
             state.splice(index, 1)
             localStorage.setItem('cart', JSON.stringify(state))
+            return [...state]
+        case Types.REMOVE_ALL_CART:
+            state = []
             return [...state]
         default:
             return state

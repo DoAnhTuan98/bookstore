@@ -6,7 +6,7 @@ import User from './User'
 import { Link } from 'react-router-dom'
 import '../../css/client/Nav.css'
 import { connect } from 'react-redux'
-import { actOpenFormSignIn, actToggleProfileForm, actLogin } from '../../actions/index'
+import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLoginRequest, actLogout } from '../../actions/index'
 
 class Nav extends Component {
     constructor(props) {
@@ -35,8 +35,14 @@ class Nav extends Component {
     }
 
     render() {
-        let { form, onToggleProfileForm, statusProfileForm, onLogin, user } = this.props
-        let token = localStorage.getItem('token')
+        let { form, onToggleProfileForm, statusProfileForm, onLogin, onLogout } = this.props
+        // let token = localStorage.getItem('token')
+
+        let user = JSON.parse(localStorage.getItem('user'))
+        let token = null
+        if (user) {
+            token = user.accessToken
+        }
         const externalCloseBtn = <button className="auth close" style={{ position: 'absolute', top: '15px', right: '15px', backgroundColor: '#fff', width: '32px', height: '32px', color: 'rgb(34, 34, 34)', borderRadius: '50%', opacity: '1' }} onClick={this.toggle}>&times;</button>;
         return (
             <div className="Nav">
@@ -52,7 +58,7 @@ class Nav extends Component {
                         }
                     </Modal>
                     {
-                        !token ? <Button className="auth-btn" onClick={this.handleOnclick}>Sign in</Button> : <User onToggleProfileForm={onToggleProfileForm} statusProfileForm={statusProfileForm} user={user} />
+                        !token ? <Button className="auth-btn" onClick={this.handleOnclick}>Sign in</Button> : <User onToggleProfileForm={onToggleProfileForm} statusProfileForm={statusProfileForm} user={user} onLogout={onLogout} />
                     }
                 </div>
             </div>
@@ -76,8 +82,11 @@ const mapDispatchToProps = (dispatch) => {
         onToggleProfileForm: () => {
             dispatch(actToggleProfileForm())
         },
-        onLogin: (account) => {
-            dispatch(actLogin(account))
+        onLogin: (user) => {
+            dispatch(actLogin(user))
+        },
+        onLogout: () => {
+            dispatch(actLogout())
         }
     }
 }

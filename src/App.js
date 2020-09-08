@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import './css/client/Cart.css'
-
-import Header from './components/client/Header'
-import Cart from './components/client/Cart'
-import Main from './components/client/Main';
-import CartItem from './components/client/CartItem'
 import routes from './routes'
-
-import { createStore } from 'redux'
+import Alert from './components/Alert'
+import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import appReducers from './reducers'
 import {
@@ -17,12 +12,13 @@ import {
     Route,
     // Link
 } from "react-router-dom";
+import thunk from 'redux-thunk'
 
 import { loadStripe } from '@stripe/stripe-js';
 import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
-const stripePromise = loadStripe('pk_test_UveTYJMSFhA9nBMhfj2AE6K600nYtR677m');
+const stripePromise = loadStripe('pk_test_51HO2ZoBA7xz6XAIm0VnMgBMrLzNHB3nZ4FYKrjBY1pGVViGQzxgHw1f3kcFRdYsKT99OgMFJJUEPUdhMzbzf5BK500Ot5FoLhR');
 
-const store = createStore(appReducers)
+const store = createStore(appReducers, applyMiddleware(thunk))
 
 class App extends Component {
     showContentMenus = (routes) => {
@@ -45,6 +41,7 @@ class App extends Component {
                 <Provider store={store}>
                     <BrowserRouter>
                         <div className="App">
+                            <Alert />
                             {this.showContentMenus(routes)}
                         </div>
                     </BrowserRouter>

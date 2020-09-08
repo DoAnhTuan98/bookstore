@@ -34,7 +34,7 @@ class CartItem extends Component {
             totalQuantity += element.quantity
         });
         let cartItems = cart.map(item =>
-            <div key={item.product.id} className="item">
+            <div key={item.product._id} className="item">
                 <QuantityAdjustment type="cart" cartCurrently={item} onAddToCart={onAddToCart} onDecreaseCart={onDecreaseCart} product={item.product} />
                 <div className="img">
                     <img src={item.product.img} alt="" />

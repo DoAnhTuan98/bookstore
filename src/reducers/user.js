@@ -1,42 +1,25 @@
 import * as Types from '../constants/ActionTypes'
 
-let initialstate = {
-    id: '1r3sfs',
-    name: 'Anh Tuan',
-    email: 'doanhtuan@gmail.com',
-    password: 'tuan123',
-    address: 'số 2 Minh Khai , Hai Bà Trưng , Hà Nội',
-    phone: '0963585663',
-    cart: []
-}
+let userLogin = localStorage.getItem('user')
 
-function makeid(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-}
-
-
+let initialstate = userLogin ? JSON.parse(userLogin) : {}
 
 const user = (state = { ...initialstate }, actions) => {
-    let { account } = actions
-    // console.log(state)
+    let { user } = actions
     switch (actions.type) {
         case Types.LOGIN:
-            if (state.email === account.email && state.password === account.password) {
-                console.log(state)
-                let token = makeid(10)
-                state.token = token
-                delete state.password
-                localStorage.setItem('token', state.token)
-                console.log(state)
-                return { ...state }
-            }
-            return { message: 'wrong email or password' }
+            state = user
+            console.log(state)
+            localStorage.setItem('user', JSON.stringify(user))
+            return { ...state }
+        case Types.LOGOUT:
+            state = {}
+            localStorage.removeItem('user')
+            return { ...state }
+        case Types.UPDATE_USERPROFILE:
+            state = user
+            localStorage.setItem('user', JSON.stringify(user))
+            return { ...state }
         default:
             return state
     }

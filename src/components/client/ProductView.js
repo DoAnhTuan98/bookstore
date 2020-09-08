@@ -21,7 +21,7 @@ class ProductView extends Component {
 
     render() {
         let { products, id, onAddToCart, cart, onCartBtnClick, onDecreaseCart } = this.props
-        let product = products.find(product => product.id === parseInt(id))
+        let product = products.find(product => product._id === id)
         return (
             <div className="ProductView py-5">
                 <Container fluid="lg">

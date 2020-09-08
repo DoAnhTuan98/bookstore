@@ -17,10 +17,10 @@ class Product extends Component {
 
     // onClick={() => onGetOneProduct(product.id)}
     render() {
-        let { type, product, cart } = this.props
+        let { type, product, cart, onAddToCart, onCartBtnClick, onDecreaseCart } = this.props
         return (
             <Col className="mb-5" sm="6" lg="4" xl="3">
-                <Link className="product" to={`/product/${product.id}`} >
+                <Link className="product" to={`/product/${product._id}`} >
                     <img src={product.img} />
                     <div className="info">
                         <h3 className="title">{product.name}</h3>
@@ -32,7 +32,13 @@ class Product extends Component {
                             <div className="price">${product.price}</div>
                             {
                                 type !== 'admin' &&
-                                <CartBtn type={type} cart={cart} product={product} />
+                                <CartBtn
+                                    type={type}
+                                    cart={cart}
+                                    product={product}
+                                    onAddToCart={onAddToCart}
+                                    onCartBtnClick={onCartBtnClick}
+                                    onDecreaseCart={onDecreaseCart} />
                             }
                         </div>
                     }

@@ -5,6 +5,8 @@ import OrderDetails from '../../components/client/OrderDetails'
 import Order from '../../components/client/Order'
 import '../../css/client/Orders.css'
 import { connect } from 'react-redux'
+import { actGetAllOrderRequest } from '../../actions/index'
+
 class Orders extends Component {
     constructor(pros) {
         super(pros)
@@ -12,6 +14,11 @@ class Orders extends Component {
             indexOrderSelected: 0
         }
     }
+
+    componentWillMount() {
+        this.props.onGetAllOrders(this.props.user)
+    }
+
 
     showOrder = (orders) => {
         let result = null
@@ -72,8 +79,17 @@ class Orders extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        orders: state.order
+        orders: state.order,
+        user: state.user
     }
 }
 
-export default connect(mapStateToProps, null)(Orders)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onGetAllOrders: (user) => {
+            dispatch(actGetAllOrderRequest(user))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders)

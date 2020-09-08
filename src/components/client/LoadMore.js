@@ -2,10 +2,6 @@ import React, { Component } from 'react'
 import '../../css/client/Loadmore.css'
 import { Button } from 'reactstrap'
 class LoadMore extends Component {
-    constructor(pros) {
-        super(pros)
-
-    }
     render() {
         return (
             <div className="m-0 w-100 d-flex justify-content-center">

@@ -3,13 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
 import QuantityAdjustment from './QuantityAdjustment'
 class CartBtn extends Component {
-    constructor(pros) {
-        super(pros)
-
-    }
     render() {
         let { type, onAddToCart, cart, product, onCartBtnClick, onDecreaseCart } = this.props
-        let cartCurrently = cart.find(element => element.product.id === product.id)
+        let cartCurrently = cart.find(element => element.product._id === product._id)
         return (
             <div className="cart-btn">
                 {
