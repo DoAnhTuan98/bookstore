@@ -18,7 +18,7 @@ class Alert extends Component {
 
     render() {
         let { statusAlert } = this.props
-
+        console.log(statusAlert)
         return (
             <div className="Alert">{this.renderAlert(statusAlert)}</div>
         )

@@ -5,17 +5,7 @@ import CartBtn from './CartBtn'
 import { Link } from 'react-router-dom'
 
 class Product extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
-
-    // handleClick = (category) => {
-    //     this.props.filterProducts(category)
-    // }
-
-
-    // onClick={() => onGetOneProduct(product.id)}
     render() {
         let { type, product, cart, onAddToCart, onCartBtnClick, onDecreaseCart } = this.props
         return (

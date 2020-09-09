@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap'
 import '../../css/client/CheckoutForm.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCreditCard, faMoneyBillAlt } from "@fortawesome/free-solid-svg-icons";
-import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+import { CardElement } from '@stripe/react-stripe-js';
 import { Redirect } from 'react-router-dom'
 import callApi from '../../utils/apiCaller';
 import axios from 'axios'
@@ -67,6 +67,7 @@ class CheckoutForm extends Component {
             let id = res.data._id
             this.props.onCreateOrder(res.data)
             this.props.onRemoveAllCart()
+            localStorage.removeItem('cart')
             this.props.onCloseCartItem()
             this.setState({
                 id: id,

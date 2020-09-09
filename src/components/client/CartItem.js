@@ -28,7 +28,6 @@ class CartItem extends Component {
 
     render() {
         let { statusCartItem, cart, onAddToCart, onDecreaseCart, onDeleteCart } = this.props
-        console.log(cart)
         let totalQuantity = null
         cart.forEach(element => {
             totalQuantity += element.quantity

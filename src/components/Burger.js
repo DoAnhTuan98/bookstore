@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 import '../css/Burger.css'
 class Burger extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
     render() {
         let { statusProfileForm } = this.props
         return (

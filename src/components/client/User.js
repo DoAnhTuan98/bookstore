@@ -5,7 +5,6 @@ import '../../css/client/User.css'
 class User extends Component {
     render() {
         let { onToggleProfileForm, statusProfileForm, user, onLogout } = this.props
-        console.log(user)
         return (
             <div className="User h-100">
                 <div className="welcome" onClick={onToggleProfileForm}>

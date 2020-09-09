@@ -38,6 +38,7 @@ class Orders extends Component {
 
     render() {
         let { orders } = this.props
+        console.log(orders)
         let { indexOrderSelected } = this.state
         return (
             <div>

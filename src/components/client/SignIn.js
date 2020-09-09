@@ -62,10 +62,12 @@ class SignIn extends Component {
             callApi('api/auth/sign-in', 'POST', account).then(res => {
                 this.props.onLogin(res.data) // res.data = user
                 this.props.onCloseModal()
+
             }).catch(error => this.setState({
                 err: error.response.data.message
             }))
         }
+
     }
 
     render() {

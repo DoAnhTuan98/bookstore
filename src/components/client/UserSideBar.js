@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../../css/client/UserSideBar.css'
 class UserSideBar extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
     render() {
         return (
             <div className="user-side-bar d-none d-xl-block">

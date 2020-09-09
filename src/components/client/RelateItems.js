@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Row } from 'reactstrap'
 import '../../css/client/RelateItems.css'
-import { connect } from 'react-redux'
 class RelateItems extends Component {
     render() {
         let { products, id } = this.props

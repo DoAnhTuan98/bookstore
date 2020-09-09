@@ -5,6 +5,7 @@ import CartItem from '../../components/client/CartItem'
 import Main from '../../components/client/Main'
 import { connect } from 'react-redux'
 import Product from '../../components/client/Product'
+
 // import Alert from '../../components/Alert'
 
 import {
@@ -14,8 +15,9 @@ import {
     actDecreaseCart,
     actDeleteCart,
     actGetAllProductRequest,
-    actFindProductRequest
+    actFindProductRequest,
 } from '../../actions/index'
+
 
 
 class Home extends Component {
@@ -52,9 +54,8 @@ class Home extends Component {
         let { products, cart, onAddToCart, onDecreaseCart, onDeleteCart, onFilterProducts, onFindProduct, onGetAllProduct } = this.props
         const indexOfLastProduct = currentPage * perPage
         const indexOfFirstProduct = indexOfLastProduct - perPage
-        console.log(products)
         const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
-        console.log(currentProducts)
+
         return (
             <div>
                 {/* <Alert /> */}
@@ -84,6 +85,7 @@ const mapStateToProps = (state) => {
     return {
         products: state.products,
         cart: state.cart,
+        statusAlert: state.statusAlert
     }
 }
 
@@ -109,7 +111,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         onDeleteCart: (product) => {
             dispatch(actDeleteCart(product))
-        }
+        },
     }
 }
 

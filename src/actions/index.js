@@ -184,14 +184,10 @@ export const actUpdateUser = (user) => {
     }
 }
 
-export const actOpenAlertLogin = () => {
-    return {
-        type: Types.OPEN_ALERT_LOGIN
-    }
-}
 
-export const actOpenAlertSave = () => {
-    return {
-        type: Types.OPEN_ALERT_SAVE
-    }
-}
+
+// export const actCreateAccount = () => {
+//     return {
+//         type: Types.CREATE_ACCOUNT
+//     }
+// }

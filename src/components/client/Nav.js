@@ -6,7 +6,7 @@ import User from './User'
 import { Link } from 'react-router-dom'
 import '../../css/client/Nav.css'
 import { connect } from 'react-redux'
-import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLoginRequest, actLogout } from '../../actions/index'
+import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLogout } from '../../actions/index'
 
 class Nav extends Component {
     constructor(props) {
@@ -35,7 +35,7 @@ class Nav extends Component {
     }
 
     render() {
-        let { form, onToggleProfileForm, statusProfileForm, onLogin, onLogout } = this.props
+        let { form, onToggleProfileForm, statusProfileForm, onLogin, onLogout, onOpenFormSignIn } = this.props
         // let token = localStorage.getItem('token')
 
         let user = JSON.parse(localStorage.getItem('user'))
@@ -54,7 +54,7 @@ class Nav extends Component {
                 <div className="user-btn">
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-dialog modal-dialog-centered" external={externalCloseBtn}>
                         {
-                            form === 'signin' ? <SignIn onLogin={onLogin} user={user} onCloseModal={this.closeModel} /> : <SignUp />
+                            form === 'signin' ? <SignIn onLogin={onLogin} user={user} onCloseModal={this.closeModel} /> : <SignUp onOpenFormSignIn={onOpenFormSignIn} />
                         }
                     </Modal>
                     {
@@ -87,7 +87,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         onLogout: () => {
             dispatch(actLogout())
-        }
+        },
     }
 }
 

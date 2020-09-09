@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 
 class Order extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
     render() {
         let { order, index, onGetIndexOrderSelected, indexOrderSelected } = this.props
         console.log(index, indexOrderSelected)
@@ -19,7 +16,7 @@ class Order extends Component {
                         </div>
                         <div className="order-info">
                             Order Id:
-                            <span>{order.id}</span>
+                            <span>{order._id}</span>
                         </div>
                         <div className="order-info">
                             Total Price:

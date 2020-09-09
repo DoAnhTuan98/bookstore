@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import './css/client/Cart.css'
 import routes from './routes'
-import Alert from './components/Alert'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import appReducers from './reducers'
@@ -15,7 +14,7 @@ import {
 import thunk from 'redux-thunk'
 
 import { loadStripe } from '@stripe/stripe-js';
-import { CardElement, Elements, ElementsConsumer } from '@stripe/react-stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 const stripePromise = loadStripe('pk_test_51HO2ZoBA7xz6XAIm0VnMgBMrLzNHB3nZ4FYKrjBY1pGVViGQzxgHw1f3kcFRdYsKT99OgMFJJUEPUdhMzbzf5BK500Ot5FoLhR');
 
 const store = createStore(appReducers, applyMiddleware(thunk))
@@ -41,7 +40,6 @@ class App extends Component {
                 <Provider store={store}>
                     <BrowserRouter>
                         <div className="App">
-                            <Alert />
                             {this.showContentMenus(routes)}
                         </div>
                     </BrowserRouter>

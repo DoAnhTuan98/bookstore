@@ -29,7 +29,7 @@ class Detail extends Component {
         return result
     }
     render() {
-        let { products, onAddToCart, cart, onCartBtnClick, statusCartItem, onDecreaseCart, onDeleteCart } = this.props
+        let { products, onAddToCart, cart, onCartBtnClick, onDecreaseCart, onDeleteCart } = this.props
         console.log(cart)
         let { match } = this.props.match
         let id = match.params.id
