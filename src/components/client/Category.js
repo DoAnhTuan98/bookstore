@@ -16,28 +16,28 @@ class Category extends Component {
                     </div>
                     <ul>
                         <li onClick={(e) => { onFilterProducts('Children Literature'); paginate(1) }}>
-                            <a>Children Literature</a>
+                            <p>Children Literature</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Comic Book'); paginate(1) }}>
-                            <a>Comic Book</a>
+                            <p>Comic Book</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Fantasy'); paginate(1) }}>
-                            <a>Fantasy</a>
+                            <p>Fantasy</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Horror'); paginate(1) }}>
-                            <a>Horror</a>
+                            <p>Horror</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Novel'); paginate(1) }}>
-                            <a>Novel</a>
+                            <p>Novel</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Romantic'); paginate(1) }}>
-                            <a>Romantic</a>
+                            <p>Romantic</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Science Fiction'); paginate(1) }}>
-                            <a>Science Fiction</a>
+                            <p>Science Fiction</p>
                         </li>
                         <li onClick={() => { onFilterProducts('Thriller'); paginate(1) }}>
-                            <a>Thriller</a>
+                            <p>Thriller</p>
                         </li>
                     </ul>
                 </div>

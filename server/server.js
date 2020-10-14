@@ -9,7 +9,10 @@ const port = 9000
 
 app.use(bodyParser.json())
 app.use(cors())
+app.use(express.static('public'))
+
 app.use(router)
+
 
 app.get('/', (req, res) => res.send('Hello!'))
 

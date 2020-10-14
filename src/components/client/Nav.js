@@ -6,7 +6,7 @@ import User from './User'
 import { Link } from 'react-router-dom'
 import '../../css/client/Nav.css'
 import { connect } from 'react-redux'
-import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLogout } from '../../actions/index'
+import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLogout, actCheckoutClick, actCloseCartItem } from '../../actions/index'
 
 class Nav extends Component {
     constructor(props) {
@@ -30,12 +30,12 @@ class Nav extends Component {
     }
 
     handleOnclick = () => {
-        this.toggle()
+        this.props.onCheckoutClick()
         this.props.onOpenFormSignIn()
     }
 
     render() {
-        let { form, onToggleProfileForm, statusProfileForm, onLogin, onLogout, onOpenFormSignIn } = this.props
+        let { form, onToggleProfileForm, statusProfileForm, onLogin, onLogout, onOpenFormSignIn, modal } = this.props
         // let token = localStorage.getItem('token')
 
         let user = JSON.parse(localStorage.getItem('user'))
@@ -43,7 +43,7 @@ class Nav extends Component {
         if (user) {
             token = user.accessToken
         }
-        const externalCloseBtn = <button className="auth close" style={{ position: 'absolute', top: '15px', right: '15px', backgroundColor: '#fff', width: '32px', height: '32px', color: 'rgb(34, 34, 34)', borderRadius: '50%', opacity: '1' }} onClick={this.toggle}>&times;</button>;
+        const externalCloseBtn = <button className="auth close" style={{ position: 'absolute', top: '15px', right: '15px', backgroundColor: '#fff', width: '32px', height: '32px', color: 'rgb(34, 34, 34)', borderRadius: '50%', opacity: '1' }} onClick={this.props.onCheckoutClick}>&times;</button>;
         return (
             <div className="Nav">
                 <div className="logo">
@@ -52,9 +52,9 @@ class Nav extends Component {
                     </Link>
                 </div>
                 <div className="user-btn">
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-dialog modal-dialog-centered" external={externalCloseBtn}>
+                    <Modal isOpen={modal} toggle={this.props.onCheckoutClick} className="modal-dialog modal-dialog-centered" external={externalCloseBtn}>
                         {
-                            form === 'signin' ? <SignIn onLogin={onLogin} user={user} onCloseModal={this.closeModel} /> : <SignUp onOpenFormSignIn={onOpenFormSignIn} />
+                            form === 'signin' ? <SignIn onLogin={onLogin} user={user} onCloseModal={this.props.onCheckoutClick} /> : <SignUp onOpenFormSignIn={onOpenFormSignIn} />
                         }
                     </Modal>
                     {
@@ -70,7 +70,8 @@ const mapStateToProps = (state) => {
     return {
         form: state.Form,
         statusProfileForm: state.statusProfileForm,
-        user: state.user
+        user: state.user,
+        modal: state.isCheckout
     }
 }
 
@@ -88,6 +89,10 @@ const mapDispatchToProps = (dispatch) => {
         onLogout: () => {
             dispatch(actLogout())
         },
+        onCheckoutClick: () => {
+            dispatch(actCheckoutClick())
+        },
+
     }
 }
 

@@ -4,6 +4,25 @@ const { signToken, verifyToken } = require('./jwt')
 
 const handlers = {
 
+    async findMany(req, res, next) {
+        try {
+            let {
+                name,
+                sortBy,
+                sort
+            } = req.query
+            let conditions = {}
+            if (name) {
+                conditions.name = new RegExp(name, 'i')
+            }
+            // let sortInfo = `${sort === 'Highest to Lowest' ? '-' : ''}${sortBy}`
+
+            let customers = await userProfileModel.find(conditions)
+            res.json(customers)
+        } catch (err) {
+            next(err)
+        }
+    },
     async signIn(req, res, next) {
         try {
             // 1.get data {email,password}

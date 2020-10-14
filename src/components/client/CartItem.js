@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag, faTimes } from "@fortawesome/free-solid-svg-icons";
 import '../../css/client/Cartitem.css'
 import { connect } from 'react-redux'
-import { actCloseCartItem } from '../../actions/index'
+import { actCloseCartItem, actCheckoutClick } from '../../actions/index'
 import QuantityAdjustment from '../../components/client/QuantityAdjustment'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 class CartItem extends Component {
     constructor(pros) {
         super(pros)
         this.state = {
-            CartItems: [],
+            isToken: false
         }
     }
 
@@ -26,7 +26,23 @@ class CartItem extends Component {
         return totalPrice
     }
 
+    handleClick = (e) => {
+        e.preventDefault()
+        let user = JSON.parse(localStorage.getItem('user'))
+        if (user) {
+            this.setState({
+                isToken: true
+            })
+        }
+        else {
+            this.props.onCheckoutClick()
+        }
+    }
+
     render() {
+        if (this.state.isToken) {
+            return <Redirect to="/checkout" />
+        }
         let { statusCartItem, cart, onAddToCart, onDecreaseCart, onDeleteCart } = this.props
         let totalQuantity = null
         cart.forEach(element => {
@@ -71,7 +87,7 @@ class CartItem extends Component {
                     }
                     {cartItems}
                 </div>
-                <Link className={cart.length === 0 ? "footer disable-btn" : "footer"} to="/checkout">
+                <Link to="/checkout" className={cart.length === 0 ? "footer disable-btn" : "footer"} onClick={this.handleClick}>
                     <span style={{
                         color: [cartItems.length === 0 ? 'rgb(0, 158, 127)' : '']
                     }}>Checkout</span>
@@ -95,6 +111,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         closeCartItem: () => {
             dispatch(actCloseCartItem())
+        },
+        onCheckoutClick: () => {
+            dispatch(actCheckoutClick())
         }
     }
 }

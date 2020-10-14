@@ -1,4 +1,5 @@
 import * as Types from '../constants/ActionTypes'
+import products from '../reducers/products'
 import callApi from '../utils/apiCaller'
 
 export const actOpenCartItem = () => {
@@ -29,6 +30,7 @@ export const actFilterCategoryRequest = (category) => {
     return async (dispatch) => {
         const res = await callApi(`api/product?category=${category}`, 'GET', null)
         let products = res.data
+        console.log(products)
         dispatch(actFilterCategory(products))
     }
 }
@@ -123,9 +125,6 @@ export const actLoginRequest = (account) => {
         callApi('api/auth/sign-in', 'POST', account).then(res => {
             dispatch(actLogin(res.data)) // res.data = user
         }).catch(error => console.log(error.response.data.message))
-        // console.log(res.message)
-        // let user = res.data
-        // dispatch(actLogin(user))
     }
 }
 
@@ -166,6 +165,22 @@ export const actGetAllOrder = (orders) => {
     }
 }
 
+export const actGetAllOrderRequestAdmin = (user) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/order`, 'GET', null)
+        let orders = res.data
+        console.log(orders)
+        dispatch(actGetAllOrderAdmin(orders))
+    }
+}
+
+export const actGetAllOrderAdmin = (orders) => {
+    return {
+        type: Types.GET_ALL_ORDER_ADMIN,
+        orders
+    }
+}
+
 export const actUpdateUserRequest = (newUserInfo) => {
     return async (dispatch) => {
         const res = await callApi('api/auth/update-user', 'PUT', newUserInfo)
@@ -184,10 +199,129 @@ export const actUpdateUser = (user) => {
     }
 }
 
+export const actCheckoutClick = () => {
+    return {
+        type: Types.CHECKOUT_CLICK
+    }
+}
 
+export const actGetAllCustomersRequest = () => {
+    return async (dispatch) => {
+        const res = await callApi('api/auth', 'GET', null)
+        const customers = res.data
+        console.log(customers)
+        dispatch(actGetAllCustomers(customers))
+    }
+}
 
-// export const actCreateAccount = () => {
+export const actGetAllCustomers = (customers) => {
+    return {
+        type: Types.GET_ALL_CUSTOMERS,
+        customers
+    }
+}
+
+export const actFilterProductsAdminRequest = (keyword, category, priceType) => {
+    console.log(keyword, category, priceType)
+    return async (dispatch) => {
+        const res = await callApi(`api/product?name=${keyword}&category=${category}&sortBy=${priceType && priceType !== 'Price' ? 'price' : ''}&sort=${priceType && priceType !== 'Price' ? priceType : ''}`)
+        let products = res.data
+        dispatch(actFilterProductsAdmin(products))
+    }
+}
+
+export const actFilterProductsAdmin = (products) => {
+    return {
+        type: Types.FILTER_PRODUCTS_ADMIN,
+        products
+    }
+}
+
+export const actFilterProductByNameAdminRequest = (keyword) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/product?name=${keyword}`)
+        let products = res.data
+        dispatch(actFilterProductByNameAdmin(products))
+    }
+}
+
+export const actFilterProductByNameAdmin = (products) => {
+    return {
+        type: Types.FILTER_PRODUCTS_BY_NAME,
+        products
+    }
+}
+
+export const actFilterOrdersRequest = (payment_method, amount, email) => {
+    if (payment_method === 'Payment Method') {
+        payment_method = ''
+    }
+    if (payment_method === 'Online Payment') {
+        payment_method = 'card'
+    }
+    else {
+        payment_method = 'cash'
+    }
+    console.log(payment_method)
+    return async (dispatch) => {
+        const res = await callApi(`api/order?email=${email}&payment=${payment_method}&sortBy=${amount && amount !== 'Amount' ? 'totalPrice' : ''}&sort=${amount}`)
+        let orders = res.data
+        dispatch(actFilterOrders(orders))
+    }
+}
+
+export const actFilterOrders = (orders) => {
+    return {
+        type: Types.FILTER_ORDERS,
+        orders
+    }
+}
+
+export const actFilterCustomersRequest = (name) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/auth?name=${name}`)
+        let customers = res.data
+        dispatch(actFilterCustomers(customers))
+    }
+}
+
+export const actFilterCustomers = (customers) => {
+    return {
+        type: Types.FILTER_CUSTOMERS,
+        customers
+    }
+}
+
+export const actToggleFormProduct = () => {
+    return {
+        type: Types.TOGGLE_FORM_PRODUCT
+    }
+}
+
+export const actGetProductUpdate = (product) => {
+    return {
+        type: Types.GET_PRODUCT_UPDATE,
+        product
+    }
+}
+
+export const actResetProductUpdate = () => {
+    return {
+        type: Types.RESET_PRODUCT_UPDATE,
+    }
+}
+
+// export const actCreateProductRequest = (data) => {
+//     return async (dispatch) => {
+//         const res = callApi('api/product', 'POST', data)
+//         let product = res.data
+//         dispatch(actCreateProduct(product))
+//     }
+// }
+
+// export const actCreateProduct = (product) => {
 //     return {
-//         type: Types.CREATE_ACCOUNT
+//         type: Types.CREATE_PRODUCT,
+//         product
 //     }
 // }

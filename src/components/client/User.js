@@ -22,7 +22,7 @@ class User extends Component {
                         <Link to="/order">My Orders</Link>
                     </li>
                     <li className={statusProfileForm ? "item-active" : "item"}>
-                        <Link to="/" onClick={onLogout}>Logout</Link>
+                        <Link to="#" onClick={onLogout}>Logout</Link>
                     </li>
                 </ul>
             </div>

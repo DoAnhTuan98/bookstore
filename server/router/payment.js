@@ -13,7 +13,7 @@ paymentRouter.post('/charge', async (req, res) => {
         const payment = await stripe.paymentIntents.create({
             amount,
             currency: 'USD',
-            description: `Purchased the ${order.name}`,
+            description: `Purchased`,
             payment_method: id,
             confirm: true
         })

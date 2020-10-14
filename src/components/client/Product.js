@@ -6,11 +6,21 @@ import { Link } from 'react-router-dom'
 
 class Product extends Component {
 
+    handleClick = () => {
+        let { product } = this.props
+        this.props.onGetProductUpdate(product)
+        this.props.onOpenFormProduct()
+    }
+
     render() {
         let { type, product, cart, onAddToCart, onCartBtnClick, onDecreaseCart } = this.props
         return (
             <Col className="mb-5" sm="6" lg="4" xl="3">
-                <Link className="product" to={`/product/${product._id}`} >
+                <Link
+                    className="product"
+                    to={type === 'admin' ? '/admin/products' : `/product/${product._id}`}
+                    onClick={type === 'admin' ? this.handleClick : null}
+                >
                     <img src={product.img} />
                     <div className="info">
                         <h3 className="title">{product.name}</h3>

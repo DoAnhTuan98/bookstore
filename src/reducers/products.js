@@ -25,6 +25,12 @@ const products = (state = initialstate, actions) => {
             let result = state.find(product => product._id === id)
             console.log(result)
             return result
+        case Types.FILTER_PRODUCTS_ADMIN:
+            state = actions.products
+            return [...state]
+        case Types.FILTER_PRODUCTS_BY_NAME:
+            state = actions.products
+            return [...state]
         default:
             return [...state]
     }

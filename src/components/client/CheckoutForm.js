@@ -23,7 +23,7 @@ class CheckoutForm extends Component {
             totalPrice: '',
             cartItem: '',
             redirect: false,
-            error: false
+            error: ''
         }
     }
 
@@ -101,11 +101,12 @@ class CheckoutForm extends Component {
                 // }
                 try {
                     const { id } = paymentMethod
-                    const { data } = await axios.post('http://localhost:9000/api/charge', { id, amount: order.totalPrice * 100, order })
+                    await axios.post('http://localhost:9000/api/charge', { id, amount: order.totalPrice * 100, order })
                     let res = await callApi('api/order', 'POST', order)
                     let id_neworder = res.data._id
                     this.props.onCreateOrder(res.data)
                     this.props.onRemoveAllCart()
+                    localStorage.removeItem('cart')
                     this.props.onCloseCartItem()
                     this.setState({
                         id: id_neworder,
@@ -114,7 +115,7 @@ class CheckoutForm extends Component {
                 } catch (error) {
                     console.log(error)
                     this.setState({
-                        error: true
+                        error: error.response.data.message
                     })
                 }
             }
@@ -243,7 +244,7 @@ class CheckoutForm extends Component {
                         </FormGroup>
                     </div>
                     {payment === 'card' && <CardElement />}
-                    {error === true && <p style={{ color: 'red', textAlign: "center", marginTop: "5px" }}>Your card's security code is incorrect.</p>}
+                    {error && <p style={{ color: 'red', textAlign: "center", marginTop: "5px" }}>{error}</p>}
                     <Button type="submit" className="btn w-100" disabled={!stripe}>Proceed to Checkout</Button>
                 </Form>
             </div>

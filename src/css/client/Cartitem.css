@@ -116,6 +116,8 @@
     color: rgb(144, 144, 144) !important;
     background-color: rgb(241, 241, 241) !important;
     border-color: rgb(241, 241, 241) !important;
+    pointer-events: none !important;
+    cursor: default !important;
 }
 
 .cart-item .footer span {

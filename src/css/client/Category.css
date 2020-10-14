@@ -30,7 +30,7 @@
     margin: 1rem 0;
 }
 
-.category ul li a {
+.category ul li p {
     color: rgb(13, 17, 54);
     font-size: 15px;
     font-weight: 700;
@@ -39,6 +39,6 @@
     transition: 0.3s;
 }
 
-.category ul li a:hover {
+.category ul li p:hover {
     color: rgb(0, 158, 127);
 }

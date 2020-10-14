@@ -3,13 +3,16 @@ const orderModel = require('./module')
 const handlers = {
     async findMany(req, res, next) {
         try {
-            let { email } = req.query
+            let { email, payment, sortBy, sort } = req.query
             let conditions = {}
             if (email) {
                 conditions.email = email
             }
-
-            let items = await orderModel.find(conditions)
+            if (payment) {
+                conditions.payment = payment
+            }
+            let sortInfo = `${sort === 'Highest to Lowest' ? '-' : ''}${sortBy}`
+            let items = await orderModel.find(conditions).sort(sortInfo)
             res.json(items)
         } catch (err) {
             next(err)

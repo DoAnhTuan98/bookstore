@@ -83,18 +83,18 @@
     height: 55px;
 }
 
-.search-bar button:visited {
+/* .search-bar button:visited {
     background-color: rgb(0, 158, 127);
     color: #fff;
     border-color: black;
-}
+} */
 
 /* .search-bar button:hover {
     background-color: rgb(0, 158, 127);
     color: #fff;
 } */
-
+/* 
 .search-bar button:active {
     background-color: rgb(0, 158, 127);
     color: #fff;
-}
+} */

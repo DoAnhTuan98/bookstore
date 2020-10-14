@@ -3,7 +3,7 @@ const productModel = require('./module')
 const handlers = {
     async findMany(req, res, next) {
         try {
-            let { category, name } = req.query
+            let { category, name, sortBy, sort } = req.query
             let conditions = {}
             if (category) {
                 conditions.category = new RegExp(category, 'i')
@@ -11,7 +11,9 @@ const handlers = {
             if (name) {
                 conditions.name = new RegExp(name, 'i')
             }
-            let items = await productModel.find(conditions)
+            let sortInfo = `${sort === 'Highest to Lowest' ? '-' : ''}${sortBy}`
+            console.log(sortInfo)
+            let items = await productModel.find(conditions).sort(sortInfo)
             res.json(items)
         } catch (err) {
             next(err)

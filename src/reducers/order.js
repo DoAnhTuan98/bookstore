@@ -20,6 +20,12 @@ const order = (state = initialstate, actions) => {
             state = orders
             console.log(state)
             return [...state]
+        case Types.GET_ALL_ORDER_ADMIN:
+            state = orders
+            return [...state]
+        case Types.FILTER_ORDERS:
+            state = orders
+            return [...state]
         default:
             return [...state]
     }

@@ -6,6 +6,10 @@ import cart from './cart'
 import statusProfileForm from './toggleProfileForm'
 import user from './user'
 import order from './order'
+import isCheckout from './isCheckout'
+import customers from './customers'
+import isOpenFormProduct from './isOpenFormProduct'
+import productEditing from './productEditing'
 const appReducers = combineReducers({
     statusCartItem,
     Form,
@@ -14,6 +18,10 @@ const appReducers = combineReducers({
     statusProfileForm,
     user,
     order,
+    isCheckout,
+    customers,
+    isOpenFormProduct,
+    productEditing
 })
 
 export default appReducers;
