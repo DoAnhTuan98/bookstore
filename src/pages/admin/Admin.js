@@ -8,12 +8,9 @@ import Sale from '../../components/admin/Sale'
 import '../../css/admin/Admin.css'
 import { connect } from 'react-redux'
 import { actGetAllOrderRequestAdmin, actGetAllCustomersRequest } from '../../actions/index'
+import {Redirect} from 'react-router-dom'
 
 class Admin extends Component {
-    constructor(pros) {
-        super(pros)
-
-    }
 
     componentDidMount() {
         this.props.onGetAllOrders()
@@ -21,6 +18,10 @@ class Admin extends Component {
     }
 
     render() {
+        let adminToken = localStorage.getItem('adminToken')
+        if (!adminToken) {
+            return <Redirect to="/admin/login" />
+        }
         let { orders, customers } = this.props
         let revenue = orders.reduce((result, current) => {
             result += current.totalPrice

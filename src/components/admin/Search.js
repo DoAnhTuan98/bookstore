@@ -62,6 +62,14 @@ class Search extends Component {
 
     }
 
+    handleClick = () => {
+        this.setState({
+            keyword_product: '',
+            keyword_order: '',
+            keyword_customer: ''
+        })
+    }
+
     render() {
         let { keyword_product, keyword_customer, keyword_order } = this.state
         let { type } = this.props
@@ -77,20 +85,21 @@ class Search extends Component {
                                     name="keyword_order"
                                     placeholder="Ex: Search By Email"
                                 />
-                                {
+                                {/* {
                                     keyword_order &&
                                     <FontAwesomeIcon
                                         icon={faTimesCircle}
                                         style={{ cursor: "pointer" }}
+                                        onClick={this.handleClick}
                                     />
-                                }
+                                } */}
                             </FormGroup>
                         </Form>
                     </Col>
                 )
             case "Customers":
                 return (
-                    <Col xl="4" className="Search" style={{ flexGrow: "1", maxWidth: "none" }}>
+                    <Col xl="6" className="Search" style={{ maxWidth: "none" }}>
                         <Form className="h-100" onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Input
@@ -99,13 +108,14 @@ class Search extends Component {
                                     name="keyword_customer"
                                     placeholder="Ex: Search By Name"
                                 />
-                                {
+                                {/* {
                                     keyword_customer &&
                                     <FontAwesomeIcon
                                         icon={faTimesCircle}
                                         style={{ cursor: "pointer" }}
+                                        onClick={this.handleClick}
                                     />
-                                }
+                                } */}
                             </FormGroup>
                         </Form>
                     </Col>
@@ -121,13 +131,14 @@ class Search extends Component {
                                     name="keyword_product"
                                     placeholder="Ex: Search By Name"
                                 />
-                                {
+                                {/* {
                                     keyword_product &&
                                     <FontAwesomeIcon
                                         icon={faTimesCircle}
                                         style={{ cursor: "pointer" }}
+                                        onClick={this.handleClick}
                                     />
-                                }
+                                } */}
                             </FormGroup>
                         </Form>
                     </Col>

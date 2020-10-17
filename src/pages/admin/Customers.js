@@ -7,10 +7,6 @@ import { connect } from 'react-redux'
 import { actGetAllCustomersRequest, actGetAllOrderRequestAdmin, actFilterCustomersRequest } from '../../actions/index'
 import { Redirect } from 'react-router-dom'
 class Customers extends Component {
-    constructor(pros) {
-        super(pros)
-
-    }
 
     componentDidMount() {
         this.props.onGetAllCustomers()

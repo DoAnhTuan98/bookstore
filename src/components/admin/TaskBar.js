@@ -45,7 +45,7 @@ class TaskBar extends Component {
                                 <h3 className="title">{type ? type : 'Products'}</h3>
                             </Col>
                             <Search type={type} onFindProduct={onFindProduct} onFilterCustomers={onFilterCustomers} />
-                            <Filter type={type} onFilterProducts={onFilterProducts} />
+                            {/* <Filter type={type} onFilterProducts={onFilterProducts} /> */}
                         </React.Fragment>
                     </Row>
                 )
