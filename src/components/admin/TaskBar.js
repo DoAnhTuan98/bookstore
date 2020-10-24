@@ -5,10 +5,7 @@ import Search from '../../components/admin/Search'
 import '../../css/admin/TaskBar.css'
 
 class TaskBar extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
     handleChange = (e) => {
 
     }

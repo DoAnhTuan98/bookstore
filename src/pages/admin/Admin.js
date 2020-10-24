@@ -22,7 +22,7 @@ class Admin extends Component {
         if (!adminToken) {
             return <Redirect to="/admin/login" />
         }
-        let { orders, customers } = this.props
+        let { orders, customers} = this.props
         let revenue = orders.reduce((result, current) => {
             result += current.totalPrice
             return result
@@ -35,7 +35,7 @@ class Admin extends Component {
         ];
         return (
             <React.Fragment>
-                <Header />
+                <Header/>
                 <Nav match={this.props.match} />
                 <div className="Admin admin-page">
                     <Container>
@@ -81,7 +81,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         onGetAllCustomers: () => {
             dispatch(actGetAllCustomersRequest())
-        },
+        }
     }
 }
 

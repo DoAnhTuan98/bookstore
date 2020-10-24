@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from 'reactstrap'
 import '../../css/admin/Header.css'
 class Header extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
     render() {
         let { onOpenFormProduct } = this.props
         return (

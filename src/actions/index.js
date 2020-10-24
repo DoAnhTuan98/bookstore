@@ -1,5 +1,4 @@
 import * as Types from '../constants/ActionTypes'
-import products from '../reducers/products'
 import callApi from '../utils/apiCaller'
 
 export const actOpenCartItem = () => {

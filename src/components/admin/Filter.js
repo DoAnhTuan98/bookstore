@@ -143,7 +143,7 @@ class Filter extends Component {
     }
 
     render() {
-        const listCategory = ['Category Type', 'Children Literature', 'Comic Book', 'Fantasy', 'Horror', 'Novel', 'Romantic', 'Science Fiction', 'Thriller']
+        // const listCategory = ['Category Type', 'Children Literature', 'Comic Book', 'Fantasy', 'Horror', 'Novel', 'Romantic', 'Science Fiction', 'Thriller']
         const listPaymentMethod = ['Payment Method', 'Cash On Delivery', 'Online Payment']
         const listAmount = ['Amount', 'Highest to Lowest', 'Lowest to Highest']
         const listPrice = ['Price', 'Highest to Lowest', 'Lowest to Highest']

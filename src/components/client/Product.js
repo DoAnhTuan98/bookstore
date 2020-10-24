@@ -21,7 +21,7 @@ class Product extends Component {
                     to={type === 'admin' ? '/admin/products' : `/product/${product._id}`}
                     onClick={type === 'admin' ? this.handleClick : null}
                 >
-                    <img src={product.img} />
+                    <img src={product.img} alt="this is image"/>
                     <div className="info">
                         <h3 className="title">{product.name}</h3>
                         <p className="author">{product.author}</p>

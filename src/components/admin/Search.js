@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Col, Form, FormGroup, Input } from 'reactstrap'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+
 
 class Search extends Component {
     constructor(pros) {
@@ -99,7 +98,7 @@ class Search extends Component {
                 )
             case "Customers":
                 return (
-                    <Col xl="6" className="Search" style={{ maxWidth: "none" }}>
+                    <Col xl="6  " className="Search" style={{ maxWidth: "none" }}>
                         <Form className="h-100" onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Input

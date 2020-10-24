@@ -6,7 +6,7 @@ import User from './User'
 import { Link } from 'react-router-dom'
 import '../../css/client/Nav.css'
 import { connect } from 'react-redux'
-import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLogout, actCheckoutClick, actCloseCartItem } from '../../actions/index'
+import { actOpenFormSignIn, actToggleProfileForm, actLogin, actLogout, actCheckoutClick    } from '../../actions/index'
 
 class Nav extends Component {
     constructor(props) {

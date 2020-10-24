@@ -5,10 +5,7 @@ import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
 import '../../css/admin/Statistic.css'
 
 class Statistic extends Component {
-    constructor(pros) {
-        super(pros)
 
-    }
     render() {
         let { title, icon, background, color, data } = this.props
         const name = title.split(' ');

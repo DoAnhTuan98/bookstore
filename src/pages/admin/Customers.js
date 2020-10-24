@@ -4,7 +4,11 @@ import Nav from '../../components/admin/NavAdmin'
 import TaskBar from '../../components/admin/TaskBar'
 import { Container, Row, Col, Table } from 'reactstrap'
 import { connect } from 'react-redux'
-import { actGetAllCustomersRequest, actGetAllOrderRequestAdmin, actFilterCustomersRequest } from '../../actions/index'
+import { 
+    actGetAllCustomersRequest, 
+    actGetAllOrderRequestAdmin, 
+    actFilterCustomersRequest,
+} from '../../actions/index'
 import { Redirect } from 'react-router-dom'
 class Customers extends Component {
 
@@ -32,7 +36,11 @@ class Customers extends Component {
         if (!adminToken) {
             return <Redirect to="/admin/login" />
         }
-        let { customers, orders, onFilterCustomers } = this.props
+        let { 
+            customers, 
+            orders, 
+            onFilterCustomers,
+        } = this.props
         customers.forEach(customer => {
             let result = orders.filter(order => order.email === customer.email)
             let totalOrder = result.length
@@ -103,7 +111,9 @@ class Customers extends Component {
 const mapStateToProps = (state) => {
     return {
         customers: state.customers,
-        orders: state.order
+        orders: state.order,
+        isOpenFormProduct: state.isOpenFormProduct,
+        productEditing: state.productEditing
     }
 }
 

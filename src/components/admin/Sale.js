@@ -22,12 +22,12 @@ class Sale extends Component {
         let result = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         for (const order of orders) {
             const parts = order.date.split('-');
-            console.log(parts)
+            // console.log(parts)
             const orderDay = new Date(parts[0] + ' ' + parts[1] + ' ' + parts[2]);
-            console.log(orderDay)
+            // console.log(orderDay)
             temp.push({ month: orderDay.getMonth(), totalPrice: order.totalPrice });
         }
-        console.log(temp)
+        // console.log(temp)
         let months = temp.reduce((accumulator, currentValue) => {
             if (currentValue.month in accumulator) {
                 accumulator[currentValue.month]++
@@ -38,7 +38,7 @@ class Sale extends Component {
             return accumulator
         }, {})
 
-        console.log(months)
+        // console.log(months)
 
         for (let i = 0; i <= 11; i++) {
             for (const month in months) {
@@ -50,7 +50,7 @@ class Sale extends Component {
             }
         }
 
-        console.log(result)
+        // console.log(result)
         const series = [{
             name: 'Sale',
             data: result

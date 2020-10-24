@@ -32,13 +32,13 @@ class Nav extends Component {
 
     render() {
         let path = this.props.match.match.path
-        const nav = [
-            { icon: faThLarge, text: 'Dashboard', path: '/admin' },
-            { icon: faShoppingBasket, text: 'Products', path: '/admin/products' },
-            { icon: faCalendarCheck, text: 'Orders', path: '/admin/orders' },
-            { icon: faUsers, text: 'Customers', path: '/admin/customers' },
-            { icon: faSignOutAlt, text: 'Logout', path: '/admin/login' }
-        ];
+        // const nav = [
+        //     { icon: faThLarge, text: 'Dashboard', path: '/admin' },
+        //     { icon: faShoppingBasket, text: 'Products', path: '/admin/products' },
+        //     { icon: faCalendarCheck, text: 'Orders', path: '/admin/orders' },
+        //     { icon: faUsers, text: 'Customers', path: '/admin/customers' },
+        //     { icon: faSignOutAlt, text: 'Logout', path: '/admin/login' }
+        // ];
         return (
             <ul className="navs">
                 {/* {this.showLinkItem(nav)} */}

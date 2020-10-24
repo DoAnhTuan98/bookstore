@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Progress, Table } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons"
-import order from '../../reducers/order';
 class OrderDetails extends Component {
     showItems = (cartItems) => {
         let result = null

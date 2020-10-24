@@ -85,7 +85,7 @@ class ProductFunc extends Component {
 
     handleImage = async (e) => {
         let target = e.target
-        let name = target.name
+        // let name = target.name
         let file = target.files[0]
         // console.log(file)
         // console.log(this.state.fileImg)
