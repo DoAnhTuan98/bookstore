@@ -21,7 +21,7 @@ const appReducers = combineReducers({
     isCheckout,
     customers,
     isOpenFormProduct,
-    productEditing
+    productEditing,
 })
 
 export default appReducers;

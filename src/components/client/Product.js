@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Col } from 'reactstrap'
 import '../../css/client/Product.css'
 import CartBtn from './CartBtn'
+import ButtonDelete from '../admin/ButtonDelete'
 import { Link } from 'react-router-dom'
 
 class Product extends Component {
@@ -13,15 +14,22 @@ class Product extends Component {
     }
 
     render() {
-        let { type, product, cart, onAddToCart, onCartBtnClick, onDecreaseCart } = this.props
+        let { 
+            type, 
+            product, 
+            cart, 
+            onAddToCart, 
+            onCartBtnClick, 
+            onDecreaseCart,
+            deleteProduct} = this.props
         return (
             <Col className="mb-5" sm="6" lg="4" xl="3">
                 <Link
                     className="product"
                     to={type === 'admin' ? '/admin/products' : `/product/${product._id}`}
-                    onClick={type === 'admin' ? this.handleClick : null}
+                    
                 >
-                    <img src={product.img} alt="this is image"/>
+                    <img src={product.img} alt="this is image" onClick={type === 'admin' ? this.handleClick : null}/>
                     <div className="info">
                         <h3 className="title">{product.name}</h3>
                         <p className="author">{product.author}</p>
@@ -39,6 +47,9 @@ class Product extends Component {
                                     onAddToCart={onAddToCart}
                                     onCartBtnClick={onCartBtnClick}
                                     onDecreaseCart={onDecreaseCart} />
+                            }
+                            {
+                                type == 'admin' && <ButtonDelete deleteProduct={deleteProduct} product={product}/>
                             }
                         </div>
                     }

@@ -18,7 +18,7 @@ class ProductFunc extends Component {
             category: 'Children Literature',
             author: '',
             url_img: '',
-            isClick: false,
+            // isClick: false,
             nameErr: '',
             priceErr: '',
             desErr: '',
@@ -129,12 +129,8 @@ class ProductFunc extends Component {
                 img: url_img ? url_img : img
             }
             if (isValidate) {
-                const res = await callApi('api/product', 'PUT', data)
-                if (res) {
-                    this.setState({
-                        isClick: true
-                    })
-                }
+                this.props.onUpdateProduct(data) // update product
+                this.props.onResetProductUpdate()
             }
         }
         else {
@@ -147,12 +143,7 @@ class ProductFunc extends Component {
                 img: url_img
             }
             if (isValidate) {
-                const res = await callApi('api/product', 'POST', data)
-                if (res) {
-                    this.setState({
-                        isClick: true
-                    })
-                }
+                this.props.onAddProduct(data) // add product
             }
         }
     }
@@ -220,7 +211,7 @@ class ProductFunc extends Component {
 
 
     render() {
-        let { isOpenFormProduct, productEditing, onCloseFormProduct } = this.props
+        let { isOpenFormProduct, productEditing, onCloseFormProduct,isClick } = this.props
         let {
             name,
             price,
@@ -229,7 +220,7 @@ class ProductFunc extends Component {
             author,
             url_img,
             img,
-            isClick,
+            // isClick,
             nameErr,
             priceErr,
             desErr,
@@ -246,9 +237,6 @@ class ProductFunc extends Component {
             { name: 'Science Fiction' },
             { name: 'Thriller' }
         ];
-        if (isClick) {
-            return <Redirect to="/admin/products" />
-        }
         return (
             <div className={isOpenFormProduct ? "ProductFuncBackground update-active" : "ProductFuncBackground"}>
                 <Container className={isOpenFormProduct ? "ProductFunc update-active" : "ProductFunc"}>

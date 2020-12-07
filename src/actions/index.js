@@ -310,17 +310,57 @@ export const actResetProductUpdate = () => {
     }
 }
 
-// export const actCreateProductRequest = (data) => {
-//     return async (dispatch) => {
-//         const res = callApi('api/product', 'POST', data)
-//         let product = res.data
-//         dispatch(actCreateProduct(product))
-//     }
-// }
+export const actDeleteProductRequest = (product) => {
+    return async (dispatch) => {
+        let id = product._id
+        const res = await callApi(`api/product/${id}`,'DELETE',null)
+        // const products = await callApi('api/product','GET',null)
+        console.log(res.data)
+        dispatch(actDeleteProduct(res.data))
+    }
+   
+    
+}
 
-// export const actCreateProduct = (product) => {
-//     return {
-//         type: Types.CREATE_PRODUCT,
-//         product
-//     }
-// }
+export const actDeleteProduct = (product) => {
+    return {
+        type : Types.DELETE_PRODUCT,
+        product
+    }
+}
+
+export const actAddProductRequest = (data) => {
+    return async (dispatch) => {
+        const res = await callApi('api/product', 'POST', data)
+        if(res) {
+            dispatch(actAddProduct(res.data))
+            dispatch(actToggleFormProduct())
+        }
+        // console.log(res.data)
+    }
+}
+
+export const actAddProduct = (product) => {
+    return {
+        type : Types.ADD_PRODUCT,
+        product
+    }
+}
+
+export const actUpdateProductRequest = (data) => {
+    return async (dispatch) => {
+        const res = await callApi('api/product', 'PUT', data)
+        if(res) {
+            dispatch(actUpdateProduct(res.data))
+            dispatch(actToggleFormProduct())
+        }
+        // console.log(res.data)
+    }
+}
+
+export const actUpdateProduct = (product) => {
+    return {
+        type : Types.UPDATE_PRPODUCT,
+        product
+    }
+}

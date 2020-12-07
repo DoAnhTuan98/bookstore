@@ -12,7 +12,10 @@ import {
     actFilterProductByNameAdminRequest,
     actToggleFormProduct,
     actGetProductUpdate,
-    actResetProductUpdate
+    actResetProductUpdate,
+    actDeleteProductRequest,
+    actAddProductRequest,
+    actUpdateProductRequest,
 } from '../../actions/index'
 import { Redirect } from 'react-router-dom'
 
@@ -39,11 +42,21 @@ class Products extends Component {
                     type="admin"
                     onOpenFormProduct={this.props.onOpenFormProduct}
                     onGetProductUpdate={this.props.onGetProductUpdate}
+                    deleteProduct = {this.props.deleteProduct}
                 />
             })
         }
         return result
     }
+
+    // deleteProduct = (product) => {
+    //     // callApi(`api/product/${_id}`,'DELETE',NULL)
+    //     console.log(product._id)
+    //     if (confirm(`bạn chắc chắn muốn xoá ${product.name}?`)) { //eslint-disable-line
+    //         // this.props.onDeleteProduct(id);
+    //         callApi(`api/product/${product._id}`,'DELETE',null)
+    //     }
+    // }
 
     paginate = (number) => {
         this.setState({
@@ -66,7 +79,10 @@ class Products extends Component {
             isOpenFormProduct,
             onCloseFormProduct,
             productEditing,
-            onResetProductUpdate
+            onResetProductUpdate,
+            onAddProduct,
+            onUpdateProduct,
+            isClick
         } = this.props
         const indexOfLastProduct = currentPage * perPage
         const indexOfFirstProduct = indexOfLastProduct - perPage
@@ -81,7 +97,10 @@ class Products extends Component {
                         onCloseFormProduct={onCloseFormProduct}
                         productEditing={productEditing}
                         onResetProductUpdate={onResetProductUpdate}
-
+                        onAddProduct={onAddProduct}
+                        onUpdateProduct={onUpdateProduct}
+                        // onSetIsClickTrue={onSetIsClickTrue}
+                        // isClick={isClick}
                     /> : ''
                 }
 
@@ -104,7 +123,8 @@ const mapStateToProps = (state) => {
     return {
         products: state.products,
         isOpenFormProduct: state.isOpenFormProduct,
-        productEditing: state.productEditing
+        productEditing: state.productEditing,
+        // isClick: state.isClick
     }
 }
 
@@ -133,6 +153,15 @@ const mapDispatchToProps = (dispatch) => {
         },
         onResetProductUpdate: () => {
             dispatch(actResetProductUpdate())
+        },
+        deleteProduct: (product) => {
+            dispatch(actDeleteProductRequest(product))
+        },
+        onAddProduct: (product) => {
+            dispatch(actAddProductRequest(product))
+        },
+        onUpdateProduct: (product) => {
+            dispatch(actUpdateProductRequest(product))
         },
     }
 }

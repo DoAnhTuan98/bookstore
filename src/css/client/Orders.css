@@ -1,11 +1,13 @@
 .orders {
     height: 100vh;
+    background-color: #fff;
 }
 
 .user-container {
     padding: 50px 25px 100px 25px;
     background-color: rgb(247, 247, 247);
     display: flex;
+    margin-top: 80px;
 }
 
 .orders .order-container {
