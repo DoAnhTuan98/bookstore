@@ -16,6 +16,7 @@ import {
     actDeleteCart,
     actGetAllProductRequest,
     actFindProductRequest,
+    actGetAllCategoryRequest,
 } from '../../actions/index'
 
 
@@ -46,12 +47,23 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.props.onGetAllCategory()
         this.props.onGetAllProduct()
     }
 
     render() {
         let { currentPage, perPage } = this.state
-        let { products, cart, onAddToCart, onDecreaseCart, onDeleteCart, onFilterProducts, onFindProduct, onGetAllProduct } = this.props
+        let { 
+            products, 
+            cart, 
+            onAddToCart, 
+            onDecreaseCart, 
+            onDeleteCart, 
+            onFilterProducts, 
+            onFindProduct, 
+            onGetAllProduct,
+            category 
+        } = this.props
         const indexOfLastProduct = currentPage * perPage
         const indexOfFirstProduct = indexOfLastProduct - perPage
         const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct)
@@ -75,6 +87,7 @@ class Home extends Component {
                     paginate={this.paginate}
                     onFilterProducts={onFilterProducts}
                     onGetAllProduct={onGetAllProduct}
+                    category={category}
                 />
             </div>
         )
@@ -85,7 +98,8 @@ const mapStateToProps = (state) => {
     return {
         products: state.products,
         cart: state.cart,
-        statusAlert: state.statusAlert
+        statusAlert: state.statusAlert,
+        category : state.category
     }
 }
 
@@ -112,7 +126,10 @@ const mapDispatchToProps = (dispatch) => {
         onDeleteCart: (product) => {
             dispatch(actDeleteCart(product))
         },
-    }
+        onGetAllCategory : () => {
+            dispatch(actGetAllCategoryRequest())
+        }
+    } 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home)

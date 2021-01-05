@@ -9,7 +9,10 @@ import order from './order'
 import isCheckout from './isCheckout'
 import customers from './customers'
 import isOpenFormProduct from './isOpenFormProduct'
+import isOpenFormCategory from './isOpenFormCategory'
 import productEditing from './productEditing'
+import category from './category'
+
 const appReducers = combineReducers({
     statusCartItem,
     Form,
@@ -22,6 +25,8 @@ const appReducers = combineReducers({
     customers,
     isOpenFormProduct,
     productEditing,
+    isOpenFormCategory,
+    category
 })
 
 export default appReducers;

@@ -6,7 +6,8 @@ import {
     faThLarge,
     faShoppingBasket,
     faCalendarCheck,
-    faUsers
+    faUsers,
+    faDiceD6
 } from "@fortawesome/free-solid-svg-icons";
 import '../../css/admin/NavAdmin.css'
 
@@ -52,6 +53,12 @@ class Nav extends Component {
                     <Link to="/admin/products" className={path === '/admin/products' ? 'link-active' : ''} >
                         <FontAwesomeIcon icon={faShoppingBasket} />
                         Products
+                    </Link>
+                </li>
+                <li >
+                    <Link to="/admin/category" className={path === '/admin/category' ? 'link-active' : ''}>
+                        <FontAwesomeIcon icon={faDiceD6} />
+                        Category
                     </Link>
                 </li>
                 <li >

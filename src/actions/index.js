@@ -364,3 +364,75 @@ export const actUpdateProduct = (product) => {
         product
     }
 }
+
+export const actToggleFormCategory = () => {
+    return {
+        type : Types.TOGGLE_FORM_CATEGORY
+    }
+}
+
+export const actGetAllCategoryRequest = () => {
+    return async (dispatch) => {
+        const res = await callApi('api/category', 'GET', null)
+        let category = res.data
+        console.log(category)
+        
+        dispatch(actGetAllCategory(category))
+    }
+}
+
+export const actGetAllCategory = (category) => {
+    return {
+        type: Types.GET_ALL_CATEGORY,
+        category
+    }
+}
+
+export const actAddCategoryRequest = (data) => {
+    return async (dispatch) => {
+        console.log(data)
+        const res = await callApi('api/category','POST',data)
+        let newCategory = res.data
+        dispatch(actAddCategory(newCategory))
+    }
+}
+
+export const actAddCategory = (category) => {
+    return {
+        type : Types.ADD_CATEGORY,
+        category
+    }
+}
+
+export const actDeleteCategoryRequest = (id) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/category/${id}`,'DELETE',null)
+        // const products = await callApi('api/product','GET',null)
+        console.log(res.data)
+        dispatch(actDeleteCategory(res.data))
+    }
+   
+    
+}
+
+export const actDeleteCategory = (category) => {
+    return {
+        type : Types.DELETE_CATEGORY,
+        category
+    }
+}
+
+export const actFilterCategoryAdminRequest = (name) => {
+    return async (dispatch) => {
+        const res = await callApi(`api/category?name=${name}`)
+        let category = res.data
+        dispatch(actFilterCategoryAdmin(category))
+    }
+}
+
+export const actFilterCategoryAdmin = (category) => {
+    return {
+        type: Types.FILTER_CATEGORY_ADMIN,
+        category
+    }
+}

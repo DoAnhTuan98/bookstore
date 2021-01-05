@@ -6,6 +6,7 @@ const orderRouter = require('./order')
 const paymentRouter = require('./payment')
 const uploadRouter = require('./upload')
 const adminRouter = require('./admin')
+const categoryRouter = require('./category')
 
 const router = new express.Router()
 
@@ -15,5 +16,6 @@ router.use('/api/order', orderRouter)
 router.use('/api', paymentRouter)
 router.use('/api/upload', uploadRouter)
 router.use('/api/admin', adminRouter)
+router.use('/api/category',categoryRouter)
 
 module.exports = router

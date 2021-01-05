@@ -392,7 +392,7 @@ class ProductFunc extends Component {
                                         value={category}
                                     // value={productEditing.category ? productEditing.category : category}
                                     >
-                                        {categoryList.map(category => <option key={category.name}>{category.name}</option>)}
+                                        {this.props.category.map(category => <option key={category.name}>{category.name}</option>)}
                                     </Input>
                                     {categoryErr && <div className="validation">{categoryErr}</div>}
                                 </FormGroup>
@@ -400,7 +400,7 @@ class ProductFunc extends Component {
                         </Row>
                         <Row className="update-btn">
                             <Col className="p-0 cancle-btn w-100">
-                                <Button className="w-100" onClick={onCloseFormProduct}>Cancle</Button>
+                                <Button className="w-100" onClick={onCloseFormProduct}>Cancel</Button>
                             </Col>
                             <Col className="p-0 submit-btn w-100">
                                 <Button className="w-100" type="submit" onClick={this.handleClickCreateOrUpdateProduct}>{this.isEmpty(productEditing) ? 'Create Product' : 'Update Product'}</Button>

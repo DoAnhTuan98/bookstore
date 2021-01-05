@@ -36,7 +36,8 @@ class Main extends Component {
             paginate,
             onFilterProducts,
             onFindProduct,
-            onFilterProductsByName
+            onFilterProductsByName,
+            category
         } = this.props
         return (
             <div className="AdminProducts admin-page">
@@ -52,6 +53,7 @@ class Main extends Component {
                                 getFilter={this.getFilter}
                                 category={this.state.category}
                                 price={this.state.price}
+                                category={category}
                             />
                         </Col>
                     </Row>

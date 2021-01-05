@@ -16,6 +16,7 @@ import {
     actDeleteProductRequest,
     actAddProductRequest,
     actUpdateProductRequest,
+    actGetAllCategoryRequest,
 } from '../../actions/index'
 import { Redirect } from 'react-router-dom'
 
@@ -29,6 +30,7 @@ class Products extends Component {
     }
 
     componentDidMount() {
+        this.props.onGetAllCategory()
         this.props.onGetAllProduct()
     }
 
@@ -82,7 +84,8 @@ class Products extends Component {
             onResetProductUpdate,
             onAddProduct,
             onUpdateProduct,
-            isClick
+            isClick,
+            category
         } = this.props
         const indexOfLastProduct = currentPage * perPage
         const indexOfFirstProduct = indexOfLastProduct - perPage
@@ -99,6 +102,7 @@ class Products extends Component {
                         onResetProductUpdate={onResetProductUpdate}
                         onAddProduct={onAddProduct}
                         onUpdateProduct={onUpdateProduct}
+                        category={category}
                         // onSetIsClickTrue={onSetIsClickTrue}
                         // isClick={isClick}
                     /> : ''
@@ -113,6 +117,7 @@ class Products extends Component {
                     onFilterProducts={onFilterProducts}
                     onFindProduct={onFindProduct}
                     onFilterProductsByName={onFilterProductsByName}
+                    category={category}
                 />
             </React.Fragment>
         )
@@ -124,6 +129,7 @@ const mapStateToProps = (state) => {
         products: state.products,
         isOpenFormProduct: state.isOpenFormProduct,
         productEditing: state.productEditing,
+        category : state.category
         // isClick: state.isClick
     }
 }
@@ -163,7 +169,10 @@ const mapDispatchToProps = (dispatch) => {
         onUpdateProduct: (product) => {
             dispatch(actUpdateProductRequest(product))
         },
-    }
+        onGetAllCategory: () => {
+            dispatch(actGetAllCategoryRequest())
+        }
+    } 
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products)

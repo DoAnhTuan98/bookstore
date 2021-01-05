@@ -207,7 +207,7 @@ class Filter extends Component {
                                 style={{ color: "rgb(22, 31, 106)", fontWeight: "600" }}
                             >
                                 {/* {this.showOption(listCategory)} */}
-                                <option value='Category Type'>Category Type</option>
+                                {/* <option value='Category Type'>Category Type</option>
                                 <option value='Children Literature'>Children Literature</option>
                                 <option value='Comic Book'>Comic Book</option>
                                 <option value='Fantasy'>Fantasy</option>
@@ -215,7 +215,11 @@ class Filter extends Component {
                                 <option value='Novel'>Novel</option>
                                 <option value='Romantic'>Romantic</option>
                                 <option value='Science Fiction'>Science Fiction</option>
-                                <option value='Thriller'>Thriller</option>
+                                <option value='Thriller'>Thriller</option> */}
+                                <option value='Category Type'>Category Type</option>
+                                {
+                                    this.props.category.map(item =><option key={item._id} value={item.name}>{item.name}</option>)
+                                }
                             </select>
                         </Col>
                         <Col xl="3" className="Filter mb-3 mb-xl-0">

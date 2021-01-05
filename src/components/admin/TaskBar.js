@@ -3,6 +3,7 @@ import { Col, Row } from 'reactstrap'
 import Filter from '../../components/admin/Filter'
 import Search from '../../components/admin/Search'
 import '../../css/admin/TaskBar.css'
+import ButtonAddCategory from './ButtonAddCategory'
 
 class TaskBar extends Component {
 
@@ -31,7 +32,9 @@ class TaskBar extends Component {
             payment,
             amount,
             keyword_email,
-            onFilterCustomers
+            onFilterCustomers,
+            onToggleFormCategory,
+            onFilterCategory
         } = this.props
         switch (type) {
             case "Customers":
@@ -69,6 +72,19 @@ class TaskBar extends Component {
                         </React.Fragment>
                     </Row>
                 )
+            case "Category":
+                return (
+                    <Row className="TaskBar">
+                        <React.Fragment>
+                            <Col xl="2" className="mb-4 mb-xl-0">
+                                <h3 className="title">{type ? type : 'Products'}</h3>
+                            </Col>
+                            <Search type={type} onFilterCategory={onFilterCategory} />
+                            {/* <Filter type={type} onFilterProducts={onFilterProducts} /> */}
+                            <ButtonAddCategory onToggleFormCategory={onToggleFormCategory}/>
+                        </React.Fragment>
+                    </Row>
+                )  
             default:
                 return (
                     <Row className="TaskBar">
@@ -81,6 +97,7 @@ class TaskBar extends Component {
                                 onFilterProducts={onFilterProducts}
                                 keyword={keyword}
                                 getFilter={getFilter}
+                                category={category}
                             />
                             <Search
                                 type={type}

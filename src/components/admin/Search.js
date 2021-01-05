@@ -8,7 +8,8 @@ class Search extends Component {
         this.state = {
             keyword_product: '',
             keyword_order: '',
-            keyword_customer: ''
+            keyword_customer: '',
+            keyword_category : ''
         }
     }
 
@@ -54,6 +55,16 @@ class Search extends Component {
         this.props.onFilterCustomers(value)
     }
 
+    handleChangeCategory = (e) => {
+        let target = e.target
+        let name = target.name
+        let value = target.value
+        this.setState({
+            [name]: value
+        })
+        this.props.onFilterCategory(value)
+    }
+
     handleSubmit = (e) => {
         // let { keyword_product, keyword_customer, keyword_order } = this.state
         e.preventDefault()
@@ -70,8 +81,8 @@ class Search extends Component {
     }
 
     render() {
-        let { keyword_product, keyword_customer, keyword_order } = this.state
-        let { type } = this.props
+        let { keyword_product, keyword_customer, keyword_order,keyword_category } = this.state
+        let { type} = this.props
         switch (type) {
             case "Orders":
                 return (
@@ -107,14 +118,21 @@ class Search extends Component {
                                     name="keyword_customer"
                                     placeholder="Ex: Search By Name"
                                 />
-                                {/* {
-                                    keyword_customer &&
-                                    <FontAwesomeIcon
-                                        icon={faTimesCircle}
-                                        style={{ cursor: "pointer" }}
-                                        onClick={this.handleClick}
-                                    />
-                                } */}
+                            </FormGroup>
+                        </Form>
+                    </Col>
+                )
+            case "Category":
+                return (
+                    <Col xl="6  " className="Search" style={{ maxWidth: "none" }}>
+                        <Form className="h-100" onSubmit={this.handleSubmit}>
+                            <FormGroup>
+                                <Input
+                                    value={keyword_category}
+                                    onChange={this.handleChangeCategory}
+                                    name="keyword_category"
+                                    placeholder="Ex: Search By Name"
+                                />
                             </FormGroup>
                         </Form>
                     </Col>

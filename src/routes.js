@@ -10,7 +10,7 @@ import Products from './pages/admin/Products'
 import OrdersAdmin from './pages/admin/Orders'
 import Customers from './pages/admin/Customers'
 import Admin from './pages/admin/Admin'
-
+import Category from './pages/admin/Category'
 const routes = [
     {
         path: '/',
@@ -67,7 +67,11 @@ const routes = [
         exact: true,
         main: (match) => <Customers match={match} />
     },
-
+    {
+        path: '/admin/category',
+        exact: true,
+        main: (match) => <Category match={match} />
+    },
 ]
 
 export default routes
